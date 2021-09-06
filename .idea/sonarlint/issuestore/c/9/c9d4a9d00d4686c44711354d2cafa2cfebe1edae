@@ -1,0 +1,15 @@
+
+E
+java:S3740&"/Provide the parametrized type for this generic.(¤òÙÀ
+w
+java:S1450"\Remove the "baiduImageAPI" field and declare it as a local variable in the relevant methods.(¢žõÂýÿÿÿÿ
+œ
+java:S11867"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ªšƒ¢üÿÿÿÿ
+Q	java:S125/"<This block of commented-out lines of code should be removed.(·ø…
+Z
+java:S1128"8Remove this unused import 'androidx.lifecycle.LiveData'.(ß„ÝÞþÿÿÿÿ8€Ê’Í»/
+g
+java:S1128"JRemove this unused import 'com.google.android.material.snackbar.Snackbar'.(ë„ƒŠ8€Ê’Í»/
+f	java:S117!"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õüìð
+p
+java:S1104"TMake progress a static final constant or non-public and provide accessors if needed.(Â¯Íj8¶˜ýÌ»/

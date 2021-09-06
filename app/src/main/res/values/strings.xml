@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Colorize !</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Image colorize</string>
+    <string name="menu_gallery">Clarity enhancement</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="permission_denied_camera_toast">Please go to app settings and grant camera permission</string>
+    <string name="permission_denied_external_storage_toast">Please go to app settings and grant external storage permission</string>
+
+    <string name="finding_rect">Use darker background</string>
+    <string name="move_away">Move away</string>
+    <string name="move_closer">Move closer</string>
+    <string name="adjust_angle">Adjust angle</string>
+    <string name="hold_still">Hold still</string>
+    <string name="capturing">Capturing image</string>
+</resources>

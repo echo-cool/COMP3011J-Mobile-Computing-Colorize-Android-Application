@@ -1,0 +1,21 @@
+
+e	java:S1165"PRename this field "_this" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚Õ°ˆ
+2
+java:S11167"Remove this empty statement.(ùøø
+U
+java:S1161E":Add the "@Override" annotation above this method signature(î•Éğûÿÿÿÿ
+V	java:S1258"<This block of commented-out lines of code should be removed.(Ó –„şÿÿÿÿ
+J
+java:S1874¤"3Remove this use of "insertImage"; it is deprecated.(å°À¦
+f	java:S117V"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öáœ¿
+>
+java:S1604O"(Make this anonymous inner class a lambda(Ä¾§ø
+C
+java:S1604W"(Make this anonymous inner class a lambda(ÁÔ‰Ûúÿÿÿÿ
+>
+java:S1604o"(Make this anonymous inner class a lambda(ñ†‚¢
+>
+java:S1604w"(Make this anonymous inner class a lambda(çíå
+D
+java:S1604¨"(Make this anonymous inner class a lambda(’Ğ¿µşÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÇÂÄ„ùÿÿÿÿ
