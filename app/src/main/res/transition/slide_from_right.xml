@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet>
+
+    <slide duration = "500"
+        slideEage = "left"/>
+
+</transitionSet>

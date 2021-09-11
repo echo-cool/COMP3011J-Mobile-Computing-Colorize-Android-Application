@@ -2,7 +2,10 @@ package com.example.myapplication.ui.ClarityEnhancement;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.myapplication.ImageUtil.rcImage;
+import com.example.myapplication.R;
 import com.example.myapplication.Util;
 import com.example.myapplication.databinding.FragmentClarityEnhancementBinding;
+import com.example.myapplication.ui.BaseFragment;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -28,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClarityEnhancementFragment extends Fragment {
+public class ClarityEnhancementFragment extends BaseFragment {
 
     private ClarityEnhancementViewModel clarityEnhancementViewModel;
     private FragmentClarityEnhancementBinding binding;
@@ -42,6 +47,11 @@ public class ClarityEnhancementFragment extends Fragment {
 
         binding = FragmentClarityEnhancementBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        Fade slideTracition = new Fade();
+        slideTracition.setDuration(getResources().getInteger(R.integer.config_navAnimTime));
+        this.setEnterTransition(slideTracition);
+        this.setExitTransition(slideTracition);
 
         final TextView textView = binding.textGallery;
         clarityEnhancementViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

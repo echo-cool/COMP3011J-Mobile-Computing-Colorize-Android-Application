@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.image_upload;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -16,6 +19,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -32,6 +37,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myapplication.BaiduAPI.BaiduImageAPI;
 import com.example.myapplication.ImageUtil.PhotoLib;
 import com.example.myapplication.Interfaces.RequestsListener;
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
 import com.example.myapplication.ui.BaseActivity;
@@ -46,7 +52,7 @@ public class ImageUploadActivityView extends BaseActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ImageColorizeUploadActivityBinding binding;
     private ImageUploadActivityViewModel imageUploadActivityViewModel;
-    private SquareProgressBar imageDisplay;
+    private ImageView imageDisplay;
     private Uri ColorizedImageUri;
     private ImageUploadActivityView _this = this;
 
@@ -67,12 +73,12 @@ public class ImageUploadActivityView extends BaseActivity {
                 imageDisplay.setImageBitmap(bitmap);
             }
         });
-        imageUploadActivityViewModel.progress.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                imageDisplay.setProgress(integer);
-            }
-        });
+//        imageUploadActivityViewModel.progress.observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                imageDisplay.setProgress(integer);
+//            }
+//        });
         imageUploadActivityViewModel.setImageViewDataByPath(intent.getStringExtra("sourceFilePath"));
 
         colorize_image();
@@ -81,6 +87,7 @@ public class ImageUploadActivityView extends BaseActivity {
             public void onClick(View v) {
                 if(imageUploadActivityViewModel.getImageViewData().getValue() == imageUploadActivityViewModel.getSourceImageBitmap()){
                     imageUploadActivityViewModel.setImageViewDataByBitmap(imageUploadActivityViewModel.getColorizedImageBitmap());
+                    binding.uploadFinishAnimationView.playAnimation();
                 }
                 else{
                     imageUploadActivityViewModel.setImageViewDataByBitmap(imageUploadActivityViewModel.getSourceImageBitmap());
@@ -90,8 +97,56 @@ public class ImageUploadActivityView extends BaseActivity {
         binding.SaveImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveImage();
-                showSnackbar("Image Saved");
+                Animation animation_fade_out = AnimationUtils.loadAnimation(_this, R.anim.fade_out);
+                Animation animation_fade_in = AnimationUtils.loadAnimation(_this, R.anim.fade_in);
+                binding.SaveImageButton.startAnimation(animation_fade_out);
+                animation_fade_in.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        binding.SaveImageButton.setVisibility(View.VISIBLE);
+                        binding.imageSaveFinished.cancelAnimation();
+                        saveImage();
+                        showSnackbar("Image Saved");
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                animation_fade_out.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        binding.SaveImageButton.setVisibility(View.INVISIBLE);
+                        binding.imageSaveFinished.setVisibility(View.VISIBLE);
+                        binding.imageSaveFinished.playAnimation();
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                binding.imageSaveFinished.addAnimatorListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        binding.SaveImageButton.startAnimation(animation_fade_in);
+                    }
+                });
+
 
             }
 
@@ -150,33 +205,101 @@ public class ImageUploadActivityView extends BaseActivity {
     }
 
     private void colorize_image() {
-        imageDisplay.showProgress(true);
+//        imageDisplay.showProgress(true);
         PercentStyle percentStyle = new PercentStyle(Paint.Align.CENTER, 190, true);
         percentStyle.setTextColor(Color.GRAY);
-        imageDisplay.setPercentStyle(percentStyle);
+//        imageDisplay.setPercentStyle(percentStyle);
 
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, 90);
-        valueAnimator.setDuration(1500);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                imageUploadActivityViewModel.progress.setValue((int)animation.getAnimatedValue());
 
-            }
-        });
-        valueAnimator.start();
         imageUploadActivityViewModel.processImage(new RequestsListener() {
             @Override
             public void success(String data) {
-                valueAnimator.removeAllUpdateListeners();
                 imageUploadActivityViewModel.progress.postValue(100);
-                imageDisplay.showProgress(false);
+//                imageDisplay.showProgress(false);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         binding.ShareButton.setEnabled(true);
                         binding.SaveImageButton.setEnabled(true);
                         binding.CompareButton.setEnabled(true);
+                        binding.uploadFinishAnimationView.playAnimation();
+                        Animation animation_fade_out = AnimationUtils.loadAnimation(_this, R.anim.fade_out);
+                        Animation animation_fade_out1 = AnimationUtils.loadAnimation(_this, R.anim.fade_out);
+                        Animation animation_fade_in = AnimationUtils.loadAnimation(_this, R.anim.fade_in);
+                        Animation animation_fade_in1 = AnimationUtils.loadAnimation(_this, R.anim.fade_in);
+                        animation_fade_in.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                binding.imageDisplay.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        animation_fade_in1.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                binding.textView3.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+
+                        animation_fade_out.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                binding.imageProcessingAnimation.setVisibility(View.INVISIBLE);
+                                binding.imageDisplay.startAnimation(animation_fade_in);
+
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        animation_fade_out1.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                binding.meachineViewAnim.setVisibility(View.INVISIBLE);
+                                binding.textView3.startAnimation(animation_fade_in1);
+
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        binding.imageProcessingAnimation.startAnimation(animation_fade_out);
+                        binding.meachineViewAnim.startAnimation(animation_fade_out1);
                     }
                 });
 

@@ -79,5 +79,10 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
     implementation 'org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly'
     implementation 'com.yanzhenjie:album:2.1.3'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+    implementation 'com.daimajia.androidanimations:library:2.4@aar'
+    implementation 'com.airbnb.android:lottie:4.1.0'
+
 
 }

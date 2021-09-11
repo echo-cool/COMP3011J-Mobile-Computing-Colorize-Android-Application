@@ -7,8 +7,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,11 +23,13 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.liveedgedetection.ScanConstants;
 import com.example.myapplication.liveedgedetection.activity.ScanActivity;
+import com.example.myapplication.ui.BaseFragment;
 import com.example.myapplication.ui.image_upload.ImageUploadActivityView;
 import com.example.myapplication.ImageUtil.GlideEngine;
 import com.example.myapplication.R;
@@ -37,7 +44,7 @@ import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
 
 import java.util.List;
 
-public class SlideshowFragment extends Fragment {
+public class SlideshowFragment extends BaseFragment {
 
     private SlideshowViewModel slideshowViewModel;
     private FragmentSlideshowBinding binding;
@@ -66,6 +73,10 @@ public class SlideshowFragment extends Fragment {
         imageLayer1_Left = binding.imageLayer1;
         imageLayer2_Right = binding.imageLayer2;
 
+        Fade slideTracition = new Fade();
+        slideTracition.setDuration(getResources().getInteger(R.integer.config_navAnimTime));
+        this.setEnterTransition(slideTracition);
+        this.setExitTransition(slideTracition);
 
 
 

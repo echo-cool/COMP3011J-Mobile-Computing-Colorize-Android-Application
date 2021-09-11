@@ -16,6 +16,7 @@ import com.example.myapplication.databinding.ContentMainBinding;
 import com.example.myapplication.liveedgedetection.ScanConstants;
 import com.example.myapplication.liveedgedetection.utils.ScanUtils;
 import com.example.myapplication.ui.image_upload.ImageUploadActivityView;
+import com.example.myapplication.ui.slideshow.SlideshowFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_home_black_24dp));
         bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_menu_gallery));
         bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_menu_slideshow));
+        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.picture_icon_audio));
         bottomNavigation.show(1, true);
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
@@ -89,10 +91,15 @@ public class MainActivity extends AppCompatActivity {
                     case 3:
                         navController.navigate(R.id.nav_home);
                         break;
+
+                    case 4:
+                        navController.navigate(R.id.nav_userFragment);
+                        break;
                 }
                 return null;
             }
         });
+
 
 
 //        DrawerLayout drawer = binding.drawerLayout;

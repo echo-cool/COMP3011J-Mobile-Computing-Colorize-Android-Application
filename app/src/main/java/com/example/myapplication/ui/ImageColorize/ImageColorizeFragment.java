@@ -9,6 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +83,11 @@ public class ImageColorizeFragment extends BaseFragment {
 
         binding = FragmentImageColorizeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        Fade slideTracition = new Fade();
+        slideTracition.setDuration(getResources().getInteger(R.integer.config_navAnimTime));
+        this.setEnterTransition(slideTracition);
+        this.setExitTransition(slideTracition);
 
         final TextView textView = binding.textHome;
         imageColorizeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

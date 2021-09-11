@@ -5,8 +5,6 @@ Iapp/src/main/java/com/example/myapplication/BaiduAPI/styleTransTypes.java,e/7/
 Kapp/src/main/java/com/example/myapplication/ImageUtil/ImageLoaderUtils.java,2/7/27131eceab8a4ea5bf0952a2f198d34125ef409f
 v
 Fapp/src/main/java/com/example/myapplication/ImageUtil/GlideEngine.java,d/a/dafa6eb4e21acf53d2024f3cc784f3dee7136b41
-}
-Mapp/src/main/java/com/example/myapplication/ui/others/ResizableImageView.java,a/c/ac8381edf7474e59deab20c7c966533ffee150c0
 w
 Gapp/src/main/java/com/example/myapplication/BaiduAPI/BaiduImageAPI.java,3/7/37061ddf9e78d1e57372c6e196bc7d8775492686
 @
@@ -33,8 +31,6 @@ Emyapplication/src/main/java/info/hannes/liveedgedetection/IScanner.kt,2/0/200c
 Umyapplication/src/main/java/info/hannes/liveedgedetection/ImageDetectionProperties.kt,1/3/139d6f77a700c717c531cd2a91a203e046e4580f
 J
 myapplication/build.gradle,8/7/8757dd6bc03199c6ed861274bfd7005e95c00614
-<
-build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
 ‚
 Rapp/src/main/java/com/example/myapplication/liveedgedetection/utils/CameraUtils.kt,7/c/7ce362e392c7d30a2cea8de7a03e5f3f4c031ed9
 ‚
@@ -69,7 +65,3 @@ Vapp/src/main/java/com/example/myapplication/liveedgedetection/activity/ScanActi
 Lapp/src/main/java/com/example/myapplication/Interfaces/RequestsListener.java,b/6/b64e0a299dbcf79634197da0f109bd3a0cedca1a
 k
 ;app/src/main/java/com/example/myapplication/ML/MLModel.java,e/f/ef6ccde8e7fa2b78385ed5198e60d947b8d81cf0
-€
-Papp/src/main/java/com/example/myapplication/ui/slideshow/SlideshowViewModel.java,7/1/71c8a3b40ad8217cf0741be9a74959fe1b5f8447
-
-]app/src/main/java/com/example/myapplication/ui/image_upload/ImageUploadActivityViewModel.java,c/9/c9d4a9d00d4686c44711354d2cafa2cfebe1edae
