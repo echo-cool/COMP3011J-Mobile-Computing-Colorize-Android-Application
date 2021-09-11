@@ -30,6 +30,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.BaiduAPI.BaiduImageAPI;
+import com.example.myapplication.ImageUtil.PhotoLib;
 import com.example.myapplication.Interfaces.RequestsListener;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
@@ -95,7 +96,8 @@ public class ImageUploadActivityView extends BaseActivity {
             }
 
             private void saveImage() {
-                String data = MediaStore.Images.Media.insertImage(getContentResolver(), imageUploadActivityViewModel.getColorizedImageBitmap(), "Colorized Image", ":)");
+                String data = PhotoLib.saveImageToGallery(getApplicationContext(), imageUploadActivityViewModel.getColorizedImageBitmap());
+//                String data = MediaStore.Images.Media.insertImage(getContentResolver(), imageUploadActivityViewModel.getColorizedImageBitmap(), "Colorized Image", ":)");
                 ColorizedImageUri = Uri.parse(data);
 
             }

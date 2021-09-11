@@ -49,6 +49,7 @@ public class SlideshowFragment extends Fragment {
     private int screenHeight;
     private String sourceFilePath;
     private SlideshowFragment _this = this;
+    private View root;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -57,13 +58,14 @@ public class SlideshowFragment extends Fragment {
                 new ViewModelProvider(this).get(SlideshowViewModel.class);
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
 
-        View root = binding.getRoot();
+        root = binding.getRoot();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenWidth= displayMetrics.widthPixels;
         screenHeight=displayMetrics.heightPixels;
         pointer = binding.pointer;
         imageLayer1_Left = binding.imageLayer1;
         imageLayer2_Right = binding.imageLayer2;
+
 
 
 
@@ -107,38 +109,7 @@ public class SlideshowFragment extends Fragment {
         slideshowViewModel.ImageLayer2_Right_Bitmap.setValue(BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_colorized));
         slideshowViewModel.Right_Bitmap_Source = BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_colorized);
 
-        root.post(new Runnable() {
-            @Override
-            public void run() {
-//                slideshowViewModel.sliderX.setValue(screenWidth/2 - 50);
-                ValueAnimator animator = ValueAnimator.ofInt(screenWidth/4,(screenWidth/4)*3);
-                animator.setDuration(1000);
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        int curValue = (int)animation.getAnimatedValue();
-                        slideshowViewModel.sliderX.setValue((int) curValue);
-                    }
-                });
-                animator.start();
-                animator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        ValueAnimator animator2 = ValueAnimator.ofInt((screenWidth/4)*3,(screenWidth/2) -50);
-                        animator2.setDuration(1000);
-                        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator animation) {
-                                int curValue = (int)animation.getAnimatedValue();
-                                slideshowViewModel.sliderX.setValue((int) curValue);
-                            }
-                        });
-                        animator2.start();
-                    }
-                });
-            }
-        });
+
 
         binding.imageUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +154,38 @@ public class SlideshowFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        root.post(new Runnable() {
+            @Override
+            public void run() {
+//                slideshowViewModel.sliderX.setValue(screenWidth/2 - 50);
+                ValueAnimator animator = ValueAnimator.ofInt((int) screenWidth/2 - 50,(screenWidth/4)*3);
+                animator.setDuration(1000);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        int curValue = (int)animation.getAnimatedValue();
+                        slideshowViewModel.sliderX.setValue((int) curValue);
+                    }
+                });
+                animator.start();
+                animator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        ValueAnimator animator2 = ValueAnimator.ofInt((screenWidth/4)*3,(screenWidth/2) -50);
+                        animator2.setDuration(1000);
+                        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator animation) {
+                                int curValue = (int)animation.getAnimatedValue();
+                                slideshowViewModel.sliderX.setValue((int) curValue);
+                            }
+                        });
+                        animator2.start();
+                    }
+                });
+            }
+        });
 
     }
 

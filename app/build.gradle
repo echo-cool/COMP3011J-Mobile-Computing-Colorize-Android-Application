@@ -31,9 +31,16 @@ android {
     }
     buildFeatures {
         viewBinding true
+        mlModelBinding true
+    }
+    dataBinding {
+        enabled = true
     }
     lintOptions {
         abortOnError false;
+    }
+    aaptOptions {
+        noCompress "tflite"
     }
 
 }
@@ -48,6 +55,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'com.android.volley:volley:1.2.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -65,5 +75,9 @@ dependencies {
     implementation 'com.quickbirdstudios:opencv:4.5.2'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.itextpdf:itext7-core:7.1.8'
+    implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
+    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly'
+    implementation 'com.yanzhenjie:album:2.1.3'
 
 }

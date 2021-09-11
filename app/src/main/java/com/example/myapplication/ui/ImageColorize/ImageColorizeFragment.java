@@ -30,6 +30,8 @@ import com.example.myapplication.ImageUtil.GlideEngine;
 import com.example.myapplication.ImageUtil.PhotoLib;
 import com.example.myapplication.Interfaces.RequestsListener;
 
+import com.example.myapplication.ML.ProcessListener;
+import com.example.myapplication.ML.StyleTransModel;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentImageColorizeBinding;
 import com.example.myapplication.ui.BaseFragment;
@@ -45,6 +47,7 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 import java.util.List;
 
 import cn.hutool.Hutool;
+import cn.hutool.core.util.SerializeUtil;
 
 public class ImageColorizeFragment extends BaseFragment {
 
@@ -52,7 +55,9 @@ public class ImageColorizeFragment extends BaseFragment {
     private FragmentImageColorizeBinding binding;
     private ImageColorizeFragment _this = this;
     private String sourceFilePath;
-    private BaiduImageAPI baiduImageAPI = new BaiduImageAPI();;
+
+    private StyleTransModel styleTransModel;
+
 //    private ActivityResultLauncher requestPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
 //        @Override
 //        public void onActivityResult(Boolean result) {
@@ -68,7 +73,8 @@ public class ImageColorizeFragment extends BaseFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        styleTransModel = new StyleTransModel(getContext());
+//        superResolutionModel = new SuperResolutionModel(getContext());
         imageColorizeViewModel =
                 new ViewModelProvider(this).get(ImageColorizeViewModel.class);
 
@@ -87,8 +93,6 @@ public class ImageColorizeFragment extends BaseFragment {
         ImageImportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 PictureSelector.create(_this)
                         .openGallery(PictureMimeType.ofAll())
                         .imageEngine(GlideEngine.createGlideEngine())
@@ -128,27 +132,39 @@ public class ImageColorizeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if(sourceFilePath != null){
-
                     colorizeImage();
                 }
             }
-
             private void colorizeImage() {
-                showLoading("Processing...");
-                baiduImageAPI.colourize(new RequestsListener() {
+                showLoading("processing....");
+//                styleTransModel.process(sourceFilePath, new ProcessListener() {
+//                    @Override
+//                    public void success(String data) {
+//                    }
+//
+//                    @Override
+//                    public void failure(String info) {
+//                    }
+//                    @Override
+//                    public void success(Bitmap styledImageBitmap) {
+//                        imageColorizeViewModel.setColorizedImageBitmap(styledImageBitmap);
+//                    }
+//                });
+                styleTransModel.process(sourceFilePath, new ProcessListener() {
                     @Override
                     public void success(String data) {
-                        imageColorizeViewModel.setColorizedImageBitmap(PhotoLib.Base64ToBitmap(data));
                         hideLoading();
-                        imageColorizeViewModel.enableSaveButton();
                     }
                     @Override
                     public void failure(String info) {
                         hideLoading();
-                        showSnackbar("Internet Disconnected !");
-
                     }
-                }, sourceFilePath);
+                    @Override
+                    public void success(Bitmap styledImageBitmap) {
+                        imageColorizeViewModel.setColorizedImageBitmap(styledImageBitmap);
+                        hideLoading();
+                    }
+                });
 
             }
         });

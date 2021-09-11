@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="85dp"
             android:fontFamily="@font/aclonica"
             android:text="Upload Image to Colorize"
             android:textAllCaps="false"
@@ -91,7 +91,7 @@
             android:layout_marginTop="24dp"
             android:scaleType="fitXY"
 
-            android:src="@drawable/ic_baseline_menu_24"
+            android:src="@drawable/ic_baseline_help_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,7 +114,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="100dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="250dp"
         android:src="@mipmap/divider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/rlImage"
