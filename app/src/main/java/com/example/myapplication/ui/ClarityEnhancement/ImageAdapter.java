@@ -1,9 +1,12 @@
 package com.example.myapplication.ui.ClarityEnhancement;
 
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         this.imageList = list;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,6 +38,31 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         rcImage image = imageList.get(position);
         holder.Image.setImageBitmap(BitmapFactory.decodeFile(image.getImgPath()));
+        holder.Image.setVisibility(View.INVISIBLE);
+        Animation animation_fade_in = AnimationUtils.loadAnimation(holder.Image.getContext(), R.anim.fade_in);
+        animation_fade_in.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                holder.Image.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        holder.Image.startAnimation(animation_fade_in);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                holder.Image.startAnimation(animation_fade_in);
+//            }
+//        }, position);
         holder.Name.setText(image.getImgName());
     }
 

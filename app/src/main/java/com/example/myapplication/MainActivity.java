@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         MeowBottomNavigation bottomNavigation = binding.navView;
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_home_black_24dp));
         bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_menu_gallery));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_menu_slideshow));
-        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.picture_icon_audio));
+//        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_menu_slideshow));
+        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.ic_baseline_person_24));
         bottomNavigation.show(1, true);
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
@@ -88,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.nav_gallery);
                         break;
 
-                    case 3:
-                        navController.navigate(R.id.nav_home);
-                        break;
+//                    case 3:
+//                        navController.navigate(R.id.nav_home);
+//                        break;
 
                     case 4:
                         navController.navigate(R.id.nav_userFragment);

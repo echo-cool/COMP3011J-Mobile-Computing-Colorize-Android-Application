@@ -9,7 +9,9 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.19615384615384615" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18717948717948718" />
         <entry key="app/src/main/res/drawable/accept.xml" value="0.16538461538461538" />
+        <entry key="app/src/main/res/drawable/buttonstyle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/divider.xml" value="0.27564102564102566" />
+        <entry key="app/src/main/res/drawable/gradientbackground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/hint_green.xml" value="0.16538461538461538" />
         <entry key="app/src/main/res/drawable/hint_red.xml" value="0.16538461538461538" />
         <entry key="app/src/main/res/drawable/hint_white.xml" value="0.16538461538461538" />
@@ -34,7 +36,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_image_colorize.xml" value="0.3079710144927536" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.2441123188405797" />
-        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.18504273504273505" />
+        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.24022089404325872" />
         <entry key="app/src/main/res/layout/home_icon_view.xml" value="0.26282051282051283" />
         <entry key="app/src/main/res/layout/image_colorize_upload_activity.xml" value="0.25" />
         <entry key="app/src/main/res/layout/index_view.xml" value="0.18318627850730212" />

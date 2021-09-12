@@ -1,0 +1,6 @@
+
+e	java:S116."PRename this field "Image" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ð©¦¨
+d	java:S116/"ORename this field "Name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ô£É¸
+t
+java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "holder".(–à¨Ç
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ì¹Îóûÿÿÿÿ

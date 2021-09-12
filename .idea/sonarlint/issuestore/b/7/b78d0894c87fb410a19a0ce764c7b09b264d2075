@@ -1,0 +1,11 @@
+
+q
+java:S1450"VRemove the "binding" field and declare it as a local variable in the relevant methods.(áğšòıÿÿÿÿ
+n
+java:S1450"SRemove the "root" field and declare it as a local variable in the relevant methods.(˜ñŸúÿÿÿÿ
+
+java:S1450"dRemove the "userFragmentViewModel" field and declare it as a local variable in the relevant methods.(´îóåüÿÿÿÿ
+U
+java:S1161":Add the "@Override" annotation above this method signature(î•Éğûÿÿÿÿ
+T
+java:S1068"9Remove this unused "userFragmentViewModel" private field.(´îóåüÿÿÿÿ

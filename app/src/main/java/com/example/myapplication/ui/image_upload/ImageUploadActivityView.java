@@ -38,6 +38,7 @@ import com.example.myapplication.BaiduAPI.BaiduImageAPI;
 import com.example.myapplication.ImageUtil.PhotoLib;
 import com.example.myapplication.Interfaces.RequestsListener;
 import com.example.myapplication.R;
+import com.example.myapplication.Util;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
 import com.example.myapplication.ui.BaseActivity;
@@ -215,6 +216,7 @@ public class ImageUploadActivityView extends BaseActivity {
             @Override
             public void success(String data) {
                 imageUploadActivityViewModel.progress.postValue(100);
+                Util.UpdateCountOnProcess();
 //                imageDisplay.showProgress(false);
                 runOnUiThread(new Runnable() {
                     @Override

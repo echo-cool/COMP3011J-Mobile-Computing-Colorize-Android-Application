@@ -65,3 +65,17 @@ Vapp/src/main/java/com/example/myapplication/liveedgedetection/activity/ScanActi
 Lapp/src/main/java/com/example/myapplication/Interfaces/RequestsListener.java,b/6/b64e0a299dbcf79634197da0f109bd3a0cedca1a
 k
 ;app/src/main/java/com/example/myapplication/ML/MLModel.java,e/f/ef6ccde8e7fa2b78385ed5198e60d947b8d81cf0
+í
+bapp/src/main/java/com/example/myapplication/ui/ClarityEnhancement/ClarityEnhancementViewModel.java,c/7/c7f2656785aee3a27def12ee509c33a8cc3fb001
+ë
+aapp/src/main/java/com/example/myapplication/ui/ClarityEnhancement/ClarityEnhancementFragment.java,a/6/a60dbd729d9076d954fd3aa53e0c80146f2740c9
+ç
+]app/src/main/java/com/example/myapplication/ui/image_upload/ImageUploadActivityViewModel.java,c/9/c9d4a9d00d4686c44711354d2cafa2cfebe1edae
+à
+Xapp/src/main/java/com/example/myapplication/ui/ImageColorize/ImageColorizeViewModel.java,f/8/f8ff55332c4a1e6be14e6ec8d11db039ec4aa823
+Ä
+Papp/src/main/java/com/example/myapplication/ui/slideshow/SlideshowViewModel.java,7/1/71c8a3b40ad8217cf0741be9a74959fe1b5f8447
+p
+@app/src/main/java/com/example/myapplication/ui/BaseFragment.java,8/b/8b78630e7dde3f049705d7cd4979b10ac6aa09b1
+É
+Sapp/src/main/java/com/example/myapplication/ui/ClarityEnhancement/ImageAdapter.java,f/9/f98ac8c0a346127fc26db98bcd74cff16f49b38b

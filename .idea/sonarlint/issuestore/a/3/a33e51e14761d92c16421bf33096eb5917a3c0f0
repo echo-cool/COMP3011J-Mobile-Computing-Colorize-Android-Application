@@ -1,0 +1,15 @@
+
+Q
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(¹£½­úÿÿÿÿ
+Q
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(Õ±µ«ùÿÿÿÿ
+H
+java:S1874"2Remove this use of "setMessage"; it is deprecated.(ÜŸ‚
+N
+java:S1874"8Remove this use of "setProgressStyle"; it is deprecated.(õ ˜¤
+L
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(õ ˜¤
+K
+java:S1874"5Remove this use of "STYLE_SPINNER"; it is deprecated.(õ ˜¤
+~
+java:S3252""hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".(­ß™À

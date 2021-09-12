@@ -1,0 +1,15 @@
+
+J
+java:S3740!"/Provide the parametrized type for this generic.(ÒõÆÛıÿÿÿÿ
+q
+java:S1450!"VRemove the "adapter" field and declare it as a local variable in the relevant methods.(ÒõÆÛıÿÿÿÿ
+€
+java:S1450"jRemove the "clarityEnhancementViewModel" field and declare it as a local variable in the relevant methods.(€ú½ú
+N
+java:S1854K"8Remove this useless assignment to local variable "data".(Êí
+^
+java:S1874L"CRemove this use of "getExternalStorageDirectory"; it is deprecated.(Ø›ú­ıÿÿÿÿ
+f	java:S1178"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿“Ü
+C
+java:S16042"(Make this anonymous inner class a lambda(Ë´òŸıÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ì¹Îóûÿÿÿÿ

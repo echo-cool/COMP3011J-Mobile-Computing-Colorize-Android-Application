@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.Util;
 import com.example.myapplication.liveedgedetection.ScanConstants;
 import com.example.myapplication.liveedgedetection.activity.ScanActivity;
 import com.example.myapplication.ui.BaseFragment;
@@ -43,6 +45,8 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
 
 import java.util.List;
+
+import cn.leancloud.LCUser;
 
 public class SlideshowFragment extends BaseFragment {
 
@@ -77,6 +81,7 @@ public class SlideshowFragment extends BaseFragment {
         slideTracition.setDuration(getResources().getInteger(R.integer.config_navAnimTime));
         this.setEnterTransition(slideTracition);
         this.setExitTransition(slideTracition);
+
 
 
 
@@ -127,31 +132,43 @@ public class SlideshowFragment extends BaseFragment {
             public void onClick(View v) {
 //                NavHostFragment.findNavController(SlideshowFragment.this)
 //                        .navigate(R.id.nav_home);
-                PictureSelector.create(_this)
-                        .openGallery(PictureMimeType.ofAll())
-                        .imageEngine(GlideEngine.createGlideEngine())
-                        .selectionMode(PictureConfig.SINGLE)
-                        .forResult(new OnResultCallbackListener<LocalMedia>() {
-                            @Override
-                            public void onResult(List<LocalMedia> result) {
-                                sourceFilePath = result.get(0).getRealPath();
-                                Intent intent = new Intent(getActivity(), ImageUploadActivityView.class);
-                                intent.putExtra("sourceFilePath", sourceFilePath);
-                                startActivity(intent);
-                            }
-                            @Override
-                            public void onCancel() {
-                                // 取消
-                            }
-                        });
+                if(Util.getRemaining() > 0) {
+
+                    PictureSelector.create(_this)
+                            .openGallery(PictureMimeType.ofAll())
+                            .imageEngine(GlideEngine.createGlideEngine())
+                            .selectionMode(PictureConfig.SINGLE)
+                            .forResult(new OnResultCallbackListener<LocalMedia>() {
+                                @Override
+                                public void onResult(List<LocalMedia> result) {
+                                    sourceFilePath = result.get(0).getRealPath();
+                                    Intent intent = new Intent(getActivity(), ImageUploadActivityView.class);
+                                    intent.putExtra("sourceFilePath", sourceFilePath);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onCancel() {
+                                    // 取消
+                                }
+                            });
+                }
+                else{
+                    Toast.makeText(getContext(), "No Enough Remaining, Please top up !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         binding.liveCamear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScanActivity.class);
-                startActivityForResult(intent, getActivity().RESULT_OK);
+                if(Util.getRemaining() > 0) {
+                    Intent intent = new Intent(getActivity(), ScanActivity.class);
+                    startActivityForResult(intent, getActivity().RESULT_OK);
+                }
+                else{
+                    Toast.makeText(getContext(), "No Enough Remaining, Please top up !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
