@@ -1,17 +1,0 @@
-
-j	java:S116"PRename this field "_this" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚÌù¾ùÿÿÿÿ
-Y
-java:S1854"CRemove this useless assignment to local variable "animation_scale".(Ò•Ô“
-J
-java:S1481"4Remove this unused "animation_scale" local variable.(Ò•Ô“
-V	java:S125 "<This block of commented-out lines of code should be removed.(“¢»¹ÿÿÿÿÿ
-J
-java:S1874="/Remove this use of "Handler"; it is deprecated.(’àÞ–úÿÿÿÿ
-C
-java:S1185D"(Remove this method to simply inherit it.(À˜Ð¡þÿÿÿÿ
-L
-java:S1874M"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD
-L
-java:S1874M"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÈ»Êþÿÿÿÿ
-f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò•Ô“

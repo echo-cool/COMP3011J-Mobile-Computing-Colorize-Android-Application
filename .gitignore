@@ -102,4 +102,7 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
+.github
+.gradle
+.idea
 
