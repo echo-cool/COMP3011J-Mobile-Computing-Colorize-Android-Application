@@ -1,9 +1,8 @@
-package com.example.myapplication.ui.others;
+package com.example.myapplication.ui.v_others;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * Created by onkar_nene on 02-02-2016.

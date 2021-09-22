@@ -1,13 +1,11 @@
-package com.example.myapplication.ui.openScreen;
+package com.example.myapplication.ui.a_open_screen_activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -23,12 +21,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.Util;
 import com.example.myapplication.databinding.OpenScreenBinding;
 import com.example.myapplication.ui.BaseActivity;
-
-import cn.leancloud.LCUser;
-import io.reactivex.disposables.Disposable;
 
 public class OpenScreenActivity extends BaseActivity {
     private OpenScreenBinding binding;

@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.image_upload;
+package com.example.myapplication.ui.a_image_upload_activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -28,16 +28,15 @@ import com.example.myapplication.Util;
 import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
 import com.example.myapplication.ui.BaseActivity;
 
-import ch.halcyon.squareprogressbar.SquareProgressBar;
 import ch.halcyon.squareprogressbar.utils.PercentStyle;
 
-public class ImageUploadActivityView extends BaseActivity {
+public class ImageUploadViewActivity extends BaseActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ImageColorizeUploadActivityBinding binding;
     private ImageUploadActivityViewModel model;
     private ImageView imageDisplay;
     private Uri ColorizedImageUri;
-    private ImageUploadActivityView _this = this;
+    private ImageUploadViewActivity _this = this;
 
 
 

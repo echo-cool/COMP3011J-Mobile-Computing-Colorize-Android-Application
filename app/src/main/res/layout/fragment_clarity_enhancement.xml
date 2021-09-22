@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ClarityEnhancement.ClarityEnhancementFragment">
+    tools:context=".ui.f_gallery_view.GalleryFragment">
 
     <TextView
         android:id="@+id/text_gallery"

@@ -1,16 +1,14 @@
-package com.example.myapplication.ui.image_upload;
+package com.example.myapplication.ui.a_image_upload_activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.BaiduAPI.BaiduImageAPI;
 import com.example.myapplication.ImageUtil.PhotoLib;
 import com.example.myapplication.Interfaces.RequestsListener;
-import com.google.android.material.snackbar.Snackbar;
 
 public class ImageUploadActivityViewModel extends ViewModel {
     private BaiduImageAPI baiduImageAPI;

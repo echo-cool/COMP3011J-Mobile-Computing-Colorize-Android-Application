@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.ImageColorize;
+package com.example.myapplication.ui.f_ImageProcessTEST_view;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,11 +33,11 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 
 import java.util.List;
 
-public class ImageColorizeFragment extends BaseFragment {
+public class ImageProcessTESTFragment extends BaseFragment {
 
-    private ImageColorizeViewModel model;
+    private ImageProcessTESTViewModel model;
     private FragmentImageColorizeBinding binding;
-    private ImageColorizeFragment _this = this;
+    private ImageProcessTESTFragment _this = this;
     private String sourceFilePath;
 
     private StyleTransModel styleTransModel;
@@ -60,7 +60,7 @@ public class ImageColorizeFragment extends BaseFragment {
         styleTransModel = new StyleTransModel(getContext());
 //        superResolutionModel = new SuperResolutionModel(getContext());
         model =
-                new ViewModelProvider(this).get(ImageColorizeViewModel.class);
+                new ViewModelProvider(this).get(ImageProcessTESTViewModel.class);
 
         binding = FragmentImageColorizeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

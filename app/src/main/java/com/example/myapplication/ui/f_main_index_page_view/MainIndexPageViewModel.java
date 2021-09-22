@@ -1,8 +1,6 @@
-package com.example.myapplication.ui.slideshow;
+package com.example.myapplication.ui.f_main_index_page_view;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,9 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.R;
-
-public class SlideshowViewModel extends ViewModel {
+public class MainIndexPageViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
     public MutableLiveData<Bitmap> ImageLayer1_Right_Bitmap;
@@ -25,7 +21,7 @@ public class SlideshowViewModel extends ViewModel {
     public MutableLiveData<Integer> sliderX;
     public Bitmap Right_Bitmap_Source;
 
-    public SlideshowViewModel() {
+    public MainIndexPageViewModel() {
         mText = new MutableLiveData<>();
         ImageLayer1_Right_Bitmap = new MutableLiveData<>();
         ImageLayer2_Right_Bitmap = new MutableLiveData<>();

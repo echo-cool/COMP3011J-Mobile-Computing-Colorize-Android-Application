@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.user;
+package com.example.myapplication.ui.f_user_view;
 
 import android.os.Bundle;
 import android.transition.Fade;

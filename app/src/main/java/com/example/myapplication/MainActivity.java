@@ -1,13 +1,9 @@
 package com.example.myapplication;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -16,26 +12,15 @@ import android.view.WindowManager;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.myapplication.ImageUtil.PhotoLib;
-import com.example.myapplication.databinding.AppBarMainBinding;
-import com.example.myapplication.databinding.ContentMainBinding;
-import com.example.myapplication.liveedgedetection.ScanConstants;
-import com.example.myapplication.liveedgedetection.utils.ScanUtils;
-import com.example.myapplication.ui.image_upload.ImageUploadActivityView;
-import com.example.myapplication.ui.slideshow.SlideshowFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.myapplication.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 
@@ -158,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Intent intent = new Intent(this, ImageUploadActivityView.class);
+            Intent intent = new Intent(this, ImageUploadViewActivity.class);
             intent.putExtra("sourceFilePath", cacheFile.getAbsolutePath());
             Log.d("MainActivity", "Save");
             startActivity(intent);

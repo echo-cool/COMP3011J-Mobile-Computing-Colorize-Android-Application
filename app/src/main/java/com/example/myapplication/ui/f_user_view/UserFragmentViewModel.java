@@ -1,6 +1,5 @@
-package com.example.myapplication.ui.user;
+package com.example.myapplication.ui.f_user_view;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 

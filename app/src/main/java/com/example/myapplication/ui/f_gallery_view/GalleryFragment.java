@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.ClarityEnhancement;
+package com.example.myapplication.ui.f_gallery_view;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,16 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClarityEnhancementFragment extends BaseFragment {
+public class GalleryFragment extends BaseFragment {
 
-    private ClarityEnhancementViewModel model;
+    private GalleryViewModel model;
     private FragmentClarityEnhancementBinding binding;
     private RecyclerView.Adapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         model =
-                new ViewModelProvider(this).get(ClarityEnhancementViewModel.class);
+                new ViewModelProvider(this).get(GalleryViewModel.class);
 
 
         binding = FragmentClarityEnhancementBinding.inflate(inflater, container, false);

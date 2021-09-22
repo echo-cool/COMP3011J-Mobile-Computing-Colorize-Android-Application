@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.slideshow;
+package com.example.myapplication.ui.f_main_index_page_view;
 
 import static androidx.core.content.ContextCompat.checkSelfPermission;
 
@@ -10,9 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.transition.Fade;
 import android.util.DisplayMetrics;
@@ -29,14 +27,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.Util;
-import com.example.myapplication.liveedgedetection.activity.ScanActivity;
 import com.example.myapplication.ui.BaseFragment;
-import com.example.myapplication.ui.camera_view.CameraKitActivity;
-import com.example.myapplication.ui.image_upload.ImageUploadActivityView;
+import com.example.myapplication.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.example.myapplication.ImageUtil.GlideEngine;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentSlideshowBinding;
-import com.example.myapplication.ui.others.ResizableImageView;
+import com.example.myapplication.ui.v_others.ResizableImageView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -44,13 +40,12 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
 
-import java.io.File;
 import java.util.List;
 
-public class SlideshowFragment extends BaseFragment {
+public class MainIndexPageFragment extends BaseFragment {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private SlideshowViewModel model;
+    private MainIndexPageViewModel model;
     private FragmentSlideshowBinding binding;
     private ImageView pointer;
     private ResizableImageView imageLayer1_Left, imageLayer2_Right;
@@ -59,14 +54,14 @@ public class SlideshowFragment extends BaseFragment {
     private int screenWidth;
     private int screenHeight;
     private String sourceFilePath;
-    private SlideshowFragment _this = this;
+    private MainIndexPageFragment _this = this;
     private View root;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         model =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+                new ViewModelProvider(this).get(MainIndexPageViewModel.class);
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
 
         root = binding.getRoot();
@@ -139,7 +134,7 @@ public class SlideshowFragment extends BaseFragment {
                                 @Override
                                 public void onResult(List<LocalMedia> result) {
                                     sourceFilePath = result.get(0).getRealPath();
-                                    Intent intent = new Intent(getActivity(), ImageUploadActivityView.class);
+                                    Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
                                     intent.putExtra("sourceFilePath", sourceFilePath);
                                     startActivity(intent);
                                 }

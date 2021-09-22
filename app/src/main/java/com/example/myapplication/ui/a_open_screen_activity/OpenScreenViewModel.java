@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.openScreen;
+package com.example.myapplication.ui.a_open_screen_activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;

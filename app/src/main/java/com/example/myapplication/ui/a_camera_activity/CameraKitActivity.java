@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.camera_view;
+package com.example.myapplication.ui.a_camera_activity;
 
 import android.os.Bundle;
 

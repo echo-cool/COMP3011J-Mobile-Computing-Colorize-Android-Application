@@ -1,24 +1,19 @@
-package com.example.myapplication.ui.ImageColorize;
+package com.example.myapplication.ui.f_ImageProcessTEST_view;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.view.View;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.R;
-
-public class ImageColorizeViewModel extends ViewModel {
+public class ImageProcessTESTViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
     private MutableLiveData<Bitmap> sourceImageBitmap;
     private MutableLiveData<Bitmap> colorizedImageBitmap;
     private MutableLiveData<Boolean> showSaveButtonVisbility;
 
-    public ImageColorizeViewModel() {
+    public ImageProcessTESTViewModel() {
         mText = new MutableLiveData<>();
         sourceImageBitmap = new MutableLiveData<>();
         colorizedImageBitmap = new MutableLiveData<>();

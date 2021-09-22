@@ -1,14 +1,14 @@
-package com.example.myapplication.ui.ClarityEnhancement;
+package com.example.myapplication.ui.f_gallery_view;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ClarityEnhancementViewModel extends ViewModel {
+public class GalleryViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ClarityEnhancementViewModel() {
+    public GalleryViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }
