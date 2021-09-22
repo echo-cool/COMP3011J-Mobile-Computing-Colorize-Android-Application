@@ -4,6 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import cn.leancloud.LCObject;
+import cn.leancloud.LCUser;
+import io.reactivex.disposables.Disposable;
+
 public class UserFragmentViewModel extends ViewModel {
     private MutableLiveData<Double> balance;
     private MutableLiveData<Integer> processedCount;
@@ -51,5 +55,28 @@ public class UserFragmentViewModel extends ViewModel {
 
     public void setRemainingCount(Integer remainingCount) {
         this.remainingCount.postValue(remainingCount);
+    }
+
+    public void updateUserProfile() {
+        LCUser currentUser = LCUser.getCurrentUser();
+        currentUser.fetchInBackground().subscribe(new io.reactivex.Observer<LCObject>() {
+            public void onSubscribe(Disposable disposable) {}
+            public void onNext(LCObject user) {
+                if (currentUser != null) {
+                    setUsername(currentUser.getUsername());
+                    setBalance(currentUser.getDouble("Balance"));
+                    setProcessedCount(currentUser.getInt("ProcessedCount"));
+                    setRemainingCount(currentUser.getInt("RemainingCount"));
+
+                } else {
+
+                }
+            }
+            public void onError(Throwable throwable) {}
+            public void onComplete() {}
+        });
+
+
+
     }
 }

@@ -3,9 +3,6 @@ package com.example.myapplication.ui.ClarityEnhancement;
 import android.os.Bundle;
 import android.os.Environment;
 import android.transition.Fade;
-import android.transition.Slide;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -26,8 +21,6 @@ import com.example.myapplication.Util;
 import com.example.myapplication.databinding.FragmentClarityEnhancementBinding;
 import com.example.myapplication.ui.BaseFragment;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +28,13 @@ import java.util.List;
 
 public class ClarityEnhancementFragment extends BaseFragment {
 
-    private ClarityEnhancementViewModel clarityEnhancementViewModel;
+    private ClarityEnhancementViewModel model;
     private FragmentClarityEnhancementBinding binding;
     private RecyclerView.Adapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        clarityEnhancementViewModel =
+        model =
                 new ViewModelProvider(this).get(ClarityEnhancementViewModel.class);
 
 
@@ -54,7 +47,7 @@ public class ClarityEnhancementFragment extends BaseFragment {
         this.setExitTransition(slideTracition);
 
         final TextView textView = binding.textGallery;
-        clarityEnhancementViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        model.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

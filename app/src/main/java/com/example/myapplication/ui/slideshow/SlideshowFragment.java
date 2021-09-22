@@ -1,19 +1,21 @@
 package com.example.myapplication.ui.slideshow;
 
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,15 +25,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.Util;
-import com.example.myapplication.liveedgedetection.ScanConstants;
 import com.example.myapplication.liveedgedetection.activity.ScanActivity;
 import com.example.myapplication.ui.BaseFragment;
+import com.example.myapplication.ui.camera_view.CameraKitActivity;
 import com.example.myapplication.ui.image_upload.ImageUploadActivityView;
 import com.example.myapplication.ImageUtil.GlideEngine;
 import com.example.myapplication.R;
@@ -44,13 +44,13 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
 
+import java.io.File;
 import java.util.List;
 
-import cn.leancloud.LCUser;
-
 public class SlideshowFragment extends BaseFragment {
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private SlideshowViewModel slideshowViewModel;
+    private SlideshowViewModel model;
     private FragmentSlideshowBinding binding;
     private ImageView pointer;
     private ResizableImageView imageLayer1_Left, imageLayer2_Right;
@@ -65,14 +65,14 @@ public class SlideshowFragment extends BaseFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
+        model =
                 new ViewModelProvider(this).get(SlideshowViewModel.class);
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
 
         root = binding.getRoot();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        screenWidth= displayMetrics.widthPixels;
-        screenHeight=displayMetrics.heightPixels;
+        screenWidth = displayMetrics.widthPixels;
+        screenHeight = displayMetrics.heightPixels;
         pointer = binding.pointer;
         imageLayer1_Left = binding.imageLayer1;
         imageLayer2_Right = binding.imageLayer2;
@@ -83,48 +83,45 @@ public class SlideshowFragment extends BaseFragment {
         this.setExitTransition(slideTracition);
 
 
-
-
-        slideshowViewModel.ImageLayer1_Right_Bitmap.observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
+        model.ImageLayer1_Right_Bitmap.observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
                 imageLayer1_Left.setImageBitmap(bitmap);
             }
         });
 
-        slideshowViewModel.ImageLayer2_Right_Bitmap.observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
+        model.ImageLayer2_Right_Bitmap.observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
                 imageLayer2_Right.setImageBitmap(bitmap);
             }
         });
-        slideshowViewModel.sliderX.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        model.sliderX.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
 
                 if (integer > 0 && integer < screenWidth - 80) {
-                    pointer.setX(integer - pointer.getWidth()/2 + 53);
+                    pointer.setX(integer - pointer.getWidth() / 2 + 53);
                 }
                 try {
 
-                    slideshowViewModel.process_touch(screenWidth, imageLayer2_Right.getMeasuredWidth(), imageLayer2_Right.getMeasuredHeight());
-                }catch (Exception e){
-                    slideshowViewModel.process_touch(screenWidth, screenWidth, screenHeight);
+                    model.process_touch(screenWidth, imageLayer2_Right.getMeasuredWidth(), imageLayer2_Right.getMeasuredHeight());
+                } catch (Exception e) {
+                    model.process_touch(screenWidth, screenWidth, screenHeight);
                 }
             }
         });
         pointer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                slideshowViewModel.sliderX.setValue((int) event.getRawX());
+                model.sliderX.setValue((int) event.getRawX());
 
                 return true;
             }
         });
-        slideshowViewModel.ImageLayer1_Right_Bitmap.setValue(BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_black));
-        slideshowViewModel.ImageLayer2_Right_Bitmap.setValue(BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_colorized));
-        slideshowViewModel.Right_Bitmap_Source = BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_colorized);
-
+        model.ImageLayer1_Right_Bitmap.setValue(BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_black));
+        model.ImageLayer2_Right_Bitmap.setValue(BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_colorized));
+        model.Right_Bitmap_Source = BitmapFactory.decodeResource(getResources(), R.mipmap.index_page_colorized);
 
 
         binding.imageUploadButton.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +129,7 @@ public class SlideshowFragment extends BaseFragment {
             public void onClick(View v) {
 //                NavHostFragment.findNavController(SlideshowFragment.this)
 //                        .navigate(R.id.nav_home);
-                if(Util.getRemaining() > 0) {
+                if (Util.getRemaining() > 0) {
 
                     PictureSelector.create(_this)
                             .openGallery(PictureMimeType.ofAll())
@@ -152,8 +149,7 @@ public class SlideshowFragment extends BaseFragment {
                                     // 取消
                                 }
                             });
-                }
-                else{
+                } else {
                     Toast.makeText(getContext(), "No Enough Remaining, Please top up !", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -162,21 +158,29 @@ public class SlideshowFragment extends BaseFragment {
         binding.liveCamear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Util.getRemaining() > 0) {
-                    Intent intent = new Intent(getActivity(), ScanActivity.class);
-                    startActivityForResult(intent, getActivity().RESULT_OK);
-                }
-                else{
+                if (Util.getRemaining() > 0) {
+                    if(checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                100);
+                    }
+                    else {
+//                        Intent intent = new Intent(getActivity(), CameraKitActivity.class);
+//                        startActivity(intent);
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                    Intent intent = new Intent(getActivity(), ScanActivity.class);
+//                    startActivityForResult(intent, getActivity().RESULT_OK);
+                    }
+                } else {
                     Toast.makeText(getContext(), "No Enough Remaining, Please top up !", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
-
-
         return root;
     }
+
 
 
     @Override
@@ -186,13 +190,13 @@ public class SlideshowFragment extends BaseFragment {
             @Override
             public void run() {
 //                slideshowViewModel.sliderX.setValue(screenWidth/2 - 50);
-                ValueAnimator animator = ValueAnimator.ofInt((int) screenWidth/2 - 50,(screenWidth/4)*3);
+                ValueAnimator animator = ValueAnimator.ofInt((int) screenWidth / 2 - 50, (screenWidth / 4) * 3);
                 animator.setDuration(1000);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
-                        int curValue = (int)animation.getAnimatedValue();
-                        slideshowViewModel.sliderX.setValue((int) curValue);
+                        int curValue = (int) animation.getAnimatedValue();
+                        model.sliderX.setValue((int) curValue);
                     }
                 });
                 animator.start();
@@ -200,13 +204,13 @@ public class SlideshowFragment extends BaseFragment {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        ValueAnimator animator2 = ValueAnimator.ofInt((screenWidth/4)*3,(screenWidth/2) -50);
+                        ValueAnimator animator2 = ValueAnimator.ofInt((screenWidth / 4) * 3, (screenWidth / 2) - 50);
                         animator2.setDuration(1000);
                         animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
-                                int curValue = (int)animation.getAnimatedValue();
-                                slideshowViewModel.sliderX.setValue((int) curValue);
+                                int curValue = (int) animation.getAnimatedValue();
+                                model.sliderX.setValue((int) curValue);
                             }
                         });
                         animator2.start();

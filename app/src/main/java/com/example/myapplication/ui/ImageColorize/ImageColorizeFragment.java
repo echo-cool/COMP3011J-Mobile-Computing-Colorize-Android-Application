@@ -1,17 +1,10 @@
 package com.example.myapplication.ui.ImageColorize;
 
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-
-import android.Manifest;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.transition.Fade;
-import android.transition.Slide;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,27 +12,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myapplication.BaiduAPI.BaiduImageAPI;
 import com.example.myapplication.ImageUtil.GlideEngine;
-import com.example.myapplication.ImageUtil.PhotoLib;
-import com.example.myapplication.Interfaces.RequestsListener;
 
 import com.example.myapplication.ML.ProcessListener;
 import com.example.myapplication.ML.StyleTransModel;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentImageColorizeBinding;
 import com.example.myapplication.ui.BaseFragment;
-import com.himanshurawat.imageworker.Extension;
-import com.himanshurawat.imageworker.ImageWorker;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -49,12 +33,9 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 
 import java.util.List;
 
-import cn.hutool.Hutool;
-import cn.hutool.core.util.SerializeUtil;
-
 public class ImageColorizeFragment extends BaseFragment {
 
-    private ImageColorizeViewModel imageColorizeViewModel;
+    private ImageColorizeViewModel model;
     private FragmentImageColorizeBinding binding;
     private ImageColorizeFragment _this = this;
     private String sourceFilePath;
@@ -78,7 +59,7 @@ public class ImageColorizeFragment extends BaseFragment {
                              ViewGroup container, Bundle savedInstanceState) {
         styleTransModel = new StyleTransModel(getContext());
 //        superResolutionModel = new SuperResolutionModel(getContext());
-        imageColorizeViewModel =
+        model =
                 new ViewModelProvider(this).get(ImageColorizeViewModel.class);
 
         binding = FragmentImageColorizeBinding.inflate(inflater, container, false);
@@ -90,7 +71,7 @@ public class ImageColorizeFragment extends BaseFragment {
         this.setExitTransition(slideTracition);
 
         final TextView textView = binding.textHome;
-        imageColorizeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        model.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -109,7 +90,7 @@ public class ImageColorizeFragment extends BaseFragment {
                             @Override
                             public void onResult(List<LocalMedia> result) {
                                 sourceFilePath = result.get(0).getRealPath();
-                                imageColorizeViewModel.setSourceImageBitmap(BitmapFactory.decodeFile(sourceFilePath));
+                                model.setSourceImageBitmap(BitmapFactory.decodeFile(sourceFilePath));
                             }
                             @Override
                             public void onCancel() {
@@ -120,7 +101,7 @@ public class ImageColorizeFragment extends BaseFragment {
         });
 
         final ImageView sourceImageView = binding.SourceImage;
-        imageColorizeViewModel.getSourceImageBitmap().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
+        model.getSourceImageBitmap().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
                 sourceImageView.setImageBitmap(bitmap);
@@ -128,7 +109,7 @@ public class ImageColorizeFragment extends BaseFragment {
         });
 
         final ImageView colorizedImageView = binding.ColorizedImage;
-        imageColorizeViewModel.getColorizedImageBitmap().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
+        model.getColorizedImageBitmap().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
                 colorizedImageView.setImageBitmap(bitmap);
@@ -169,7 +150,7 @@ public class ImageColorizeFragment extends BaseFragment {
                     }
                     @Override
                     public void success(Bitmap styledImageBitmap) {
-                        imageColorizeViewModel.setColorizedImageBitmap(styledImageBitmap);
+                        model.setColorizedImageBitmap(styledImageBitmap);
                         hideLoading();
                     }
                 });
@@ -185,18 +166,18 @@ public class ImageColorizeFragment extends BaseFragment {
             }
 
             private void saveImage() {
-                MediaStore.Images.Media.insertImage(getContext().getContentResolver(), imageColorizeViewModel.getColorizedImageBitmap().getValue(), "title", "description");
+                MediaStore.Images.Media.insertImage(getContext().getContentResolver(), model.getColorizedImageBitmap().getValue(), "title", "description");
             }
 
         });
-        imageColorizeViewModel.getSaveButtonVisbility().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        model.getSaveButtonVisbility().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean bool) {
                 saveColorizedImageButton.setEnabled(bool);
             }
         });
-        imageColorizeViewModel.setSourceImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.black_demo_image));
-        imageColorizeViewModel.setColorizedImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.colorized_demo_image));
+        model.setSourceImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.black_demo_image));
+        model.setColorizedImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.colorized_demo_image));
 
 
         return root;

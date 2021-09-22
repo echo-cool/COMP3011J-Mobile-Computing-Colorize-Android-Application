@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -11,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.myapplication.ImageUtil.PhotoLib;
 import com.example.myapplication.databinding.AppBarMainBinding;
 import com.example.myapplication.databinding.ContentMainBinding;
 import com.example.myapplication.liveedgedetection.ScanConstants;
@@ -21,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -35,6 +41,10 @@ import com.example.myapplication.databinding.ActivityMainBinding;
 
 import org.opencv.android.OpenCVLoader;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -43,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-//    private AppBarMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,13 +142,28 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("MainActivity", "onActivityResult");
         try {
-            String filePath = data.getExtras().getString(ScanConstants.SCANNED_RESULT);
+//            String filePath = data.getExtras().getString(MediaStore.EXTRA_OUTPUT);
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(imageBitmap, imageBitmap.getWidth(), imageBitmap.getHeight(), true);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
+            File cacheFile = new File(getCacheDir(), PhotoLib.getRandomFileName());
+            try (FileOutputStream out = new FileOutputStream(cacheFile)) {
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out); // bmp is your Bitmap instance
+                // PNG is a lossless format, the compression factor (100) is ignored
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             Intent intent = new Intent(this, ImageUploadActivityView.class);
-            intent.putExtra("sourceFilePath", filePath);
-            Log.d("MainActivity", filePath);
+            intent.putExtra("sourceFilePath", cacheFile.getAbsolutePath());
+            Log.d("MainActivity", "Save");
             startActivity(intent);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
