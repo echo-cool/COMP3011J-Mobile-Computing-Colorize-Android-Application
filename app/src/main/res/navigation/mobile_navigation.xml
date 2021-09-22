@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.echo.myapplication.ui.f_ImageProcessTEST_view.ImageProcessTESTFragment"
+        android:name="com.echo.colorizeit.ui.f_ImageProcessTEST_view.ImageProcessTESTFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_image_colorize" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.echo.myapplication.ui.f_gallery_view.GalleryFragment"
+        android:name="com.echo.colorizeit.ui.f_gallery_view.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_clarity_enhancement" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.echo.myapplication.ui.f_main_index_page_view.MainIndexPageFragment"
+        android:name="com.echo.colorizeit.ui.f_main_index_page_view.MainIndexPageFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_userFragment"
-        android:name="com.echo.myapplication.ui.f_user_view.UserFragment"
+        android:name="com.echo.colorizeit.ui.f_user_view.UserFragment"
         android:label="UserFragment" />
 </navigation>
