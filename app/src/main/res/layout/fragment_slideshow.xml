@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.f_main_index_page_view.MainIndexPageFragment">
+    tools:context="com.echo.myapplication.ui.f_main_index_page_view.MainIndexPageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rlImage"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.example.myapplication.ui.v_others.ResizableImageView
+        <com.echo.myapplication.ui.v_others.ResizableImageView
             android:id="@+id/imageLayer1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.example.myapplication.ui.v_others.ResizableImageView
+        <com.echo.myapplication.ui.v_others.ResizableImageView
             android:id="@+id/imageLayer2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

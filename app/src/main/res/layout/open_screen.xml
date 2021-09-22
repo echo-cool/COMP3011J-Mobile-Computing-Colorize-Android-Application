@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.a_open_screen_activity.OpenScreenActivity"
+    tools:context="com.echo.myapplication.ui.a_open_screen_activity.OpenScreenActivity"
     android:background="@color/black"
     >
 

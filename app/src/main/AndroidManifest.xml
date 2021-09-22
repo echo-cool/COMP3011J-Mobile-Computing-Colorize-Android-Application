@@ -13,7 +13,7 @@
 
 
     <application
-        android:name=".APP"
+        android:name="com.echo.myapplication.APP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,7 +23,7 @@
         android:theme="@style/Theme.MyApplication">
 
         <activity
-            android:name=".ui.a_open_screen_activity.OpenScreenActivity"
+            android:name="com.echo.myapplication.ui.a_open_screen_activity.OpenScreenActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication.NoActionBar">
@@ -35,7 +35,7 @@
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.echo.myapplication.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication.NoActionBar">
@@ -46,13 +46,13 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".ui.a_image_upload_activity.ImageUploadViewActivity"
+            android:name="com.echo.myapplication.ui.a_image_upload_activity.ImageUploadViewActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication.NoActionBar">
         </activity>
         <activity
-            android:name=".ui.a_camera_activity.CameraKitActivity"
+            android:name="com.echo.myapplication.ui.a_camera_activity.CameraKitActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication.NoActionBar">
