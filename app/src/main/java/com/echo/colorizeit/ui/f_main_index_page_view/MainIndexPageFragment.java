@@ -28,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.echo.colorizeit.ImageUtil.GlideEngine;
 import com.echo.colorizeit.Util;
+import com.echo.colorizeit.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseFragment;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.echo.colorizeit.ui.v_others.ResizableImageView;
@@ -169,6 +170,14 @@ public class MainIndexPageFragment extends BaseFragment {
                 } else {
                     Toast.makeText(getContext(), "No Enough Remaining, Please top up !", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        binding.wellComeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                startActivity(intent);
             }
         });
 

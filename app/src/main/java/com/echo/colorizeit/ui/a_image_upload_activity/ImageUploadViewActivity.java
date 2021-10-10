@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.echo.colorizeit.Util;
+import com.echo.colorizeit.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseActivity;
 import com.echo.colorizeit.ImageUtil.PhotoLib;
 import com.echo.colorizeit.Interfaces.RequestsListener;
@@ -37,7 +38,6 @@ public class ImageUploadViewActivity extends BaseActivity {
     private ImageView imageDisplay;
     private Uri ColorizedImageUri;
     private ImageUploadViewActivity _this = this;
-
 
 
     @Override
@@ -62,19 +62,25 @@ public class ImageUploadViewActivity extends BaseActivity {
 //            }
 //        });
         model.setImageViewDataByPath(intent.getStringExtra("sourceFilePath"));
-
+        binding.imageProcessingAnimation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(_this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
         colorize_image();
         binding.CompareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(model.getImageViewData().getValue() == model.getSourceImageBitmap()){
+                if (model.getImageViewData().getValue() == model.getSourceImageBitmap()) {
                     model.setImageViewDataByBitmap(model.getColorizedImageBitmap());
                     binding.uploadFinishAnimationView.playAnimation();
-                }
-                else{
+                } else {
                     model.setImageViewDataByBitmap(model.getSourceImageBitmap());
                 }
-            }});
+            }
+        });
 
         binding.SaveImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +168,7 @@ public class ImageUploadViewActivity extends BaseActivity {
                 final Dialog dialog = new Dialog(_this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
 
 
-                ImageView imgView =  new ImageView(_this);
+                ImageView imgView = new ImageView(_this);
                 imgView.setImageBitmap((Bitmap) model.getImageViewData().getValue());
                 dialog.setContentView(imgView);
                 dialog.show();
@@ -292,7 +298,6 @@ public class ImageUploadViewActivity extends BaseActivity {
             }
         });
     }
-
 
 
     public void makeFullScreen() {

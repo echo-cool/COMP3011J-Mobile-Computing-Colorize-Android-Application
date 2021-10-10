@@ -1,8 +1,6 @@
 
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-android-extensions'
 
 }
 
@@ -74,7 +72,7 @@ dependencies {
     implementation 'com.sdsmdg.harjot:rotatingtext:1.0.2'
     implementation 'ch.halcyon:squareprogressbar:1.6.4'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-    implementation 'com.quickbirdstudios:opencv:4.5.2'
+//    implementation 'com.quickbirdstudios:opencv:4.5.2'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.itextpdf:itext7-core:7.1.8'
     implementation 'com.etebarian:meow-bottom-navigation:1.2.0'

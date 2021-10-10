@@ -16,6 +16,7 @@ import com.example.myapplication.R;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 
-import org.opencv.android.OpenCVLoader;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         makeFullScreen();
-        if (!OpenCVLoader.initDebug())
-            Log.e("OpenCv", "Unable to load OpenCV");
-        else
-            Log.d("OpenCv", "OpenCV loaded");
+//        if (!OpenCVLoader.initDebug())
+//            Log.e("OpenCv", "Unable to load OpenCV");
+//        else
+//            Log.d("OpenCv", "OpenCV loaded");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
+
 
 
 
