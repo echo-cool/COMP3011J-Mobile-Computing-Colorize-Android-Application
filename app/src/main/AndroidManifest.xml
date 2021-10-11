@@ -31,18 +31,19 @@
             android:name="com.echo.colorizeit.ui.a_open_screen_activity.OpenScreenActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyApplication.NoActionBar">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
             android:name="com.echo.colorizeit.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -54,11 +55,13 @@
             android:name="com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyApplication.NoActionBar"></activity>
         <activity
             android:name="com.echo.colorizeit.ui.a_camera_activity.CameraKitActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyApplication.NoActionBar"></activity>
         <activity
             android:name="com.echo.colorizeit.myganme.GameActivity"
@@ -67,11 +70,11 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.MyApplication.NoActionBar">>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
 
         </activity>
 

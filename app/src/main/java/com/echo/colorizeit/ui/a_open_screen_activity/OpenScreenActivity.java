@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.echo.colorizeit.MainActivity;
+import com.echo.colorizeit.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.OpenScreenBinding;
@@ -39,6 +40,7 @@ public class OpenScreenActivity extends BaseActivity {
         anim_play_view_fade_out = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         openScreen_element_fade_in = AnimationUtils.loadAnimation(this, R.anim.anim_open_screen);
         makeFullScreen();
+
 
         anim_play_view_fade_out.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -79,6 +81,7 @@ public class OpenScreenActivity extends BaseActivity {
         });
         binding = OpenScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.animationView.enableMergePathsForKitKatAndAbove(true);
 
         if (model.check_if_user_first_enter(this)) {//第一次
             model.mark_user_entered_this_app();
@@ -152,13 +155,25 @@ public class OpenScreenActivity extends BaseActivity {
         });
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(model.getShowAlterDialog().getValue())
+            showAlterDialog();
+    }
 
     private void showAlterDialog() {
         final AlertDialog.Builder alterDiaglog = new AlertDialog.Builder(this);
 
         alterDiaglog.setTitle("No Internet");//文字
         alterDiaglog.setMessage("Please connect to Internet to continue.");//提示消息
+        alterDiaglog.setPositiveButton("Play a Game", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(_this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
 
         alterDiaglog.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
             @Override

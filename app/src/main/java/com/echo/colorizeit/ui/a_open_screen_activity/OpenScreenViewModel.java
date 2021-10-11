@@ -23,6 +23,7 @@ public class OpenScreenViewModel extends ViewModel {
         Is_user_first_enter_this_app = new MutableLiveData<>();
         gotoMainActivity = new MutableLiveData<>();
         showAlterDialog = new MutableLiveData<>();
+        showAlterDialog.setValue(false);
 
     }
 
