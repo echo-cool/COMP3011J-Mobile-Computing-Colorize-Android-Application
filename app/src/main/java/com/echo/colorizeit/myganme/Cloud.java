@@ -10,13 +10,15 @@ import com.example.myapplication.R;
 
 public class Cloud extends RectHittableObject{
     private Bitmap cloud;
+    private int speed = Scene.speed;
     public Cloud(int x, int y, int width, int height, Context context) {
         super(x, y, width, height, context);
     }
 
     @Override
     public void draw(Canvas canvas) {
-
+        if (GameView.DEBUG)
+            canvas.drawRect(getBorderRect(), getDefault_paint());
         if(cloud== null)
             cloud = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.cloud);
         canvas.drawBitmap(cloud, null, getBorder_rect(), null);
@@ -25,5 +27,16 @@ public class Cloud extends RectHittableObject{
     @Override
     public Boolean checkHit(Rect rect) {
         return false;
+    }
+
+    @Override
+    public void moveSingle() {
+        int x = getX() - speed / GameView.FPS;
+        if((x > 0 - getWidth() - 100 && x <= Scene.screenWidth && getMoveStarted())){
+            setLocation(x, getY());
+        }
+        else{setMoveStarted(false);
+
+        }
     }
 }

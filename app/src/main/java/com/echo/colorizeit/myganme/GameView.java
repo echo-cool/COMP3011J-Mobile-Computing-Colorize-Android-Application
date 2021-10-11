@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -15,20 +16,23 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
+    public static final Boolean DEBUG = true;
     private SurfaceHolder holder;
     private Boolean isDrawing;
     private Canvas canvas;
     private Paint string_paint;
     private Paint string_paint1;
-    public static final int FPS = 100;
-    public static final int minDrawTime = 1000 / FPS;
+    public static int FPS = 60;
+    public static int minDrawTime = 1000 / FPS;
     private Scene scene;
     public static Context context;
     private ArrayList<Integer> FPS_data = new ArrayList<>();
     private float mean_fps = 0;
     private Boolean isHit = false;
+    private Boolean isGameOver = false;
 
 
     public GameView(Context context) {
@@ -63,7 +67,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
         int ScreenHeight = Math.abs(holder.getSurfaceFrame().top - holder.getSurfaceFrame().bottom);
         scene = new Scene(ScreenWidth, ScreenHeight);
         Scene.init_game_object(context);
-        Scene.startMove();
+//        Scene.startMove();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            holder.getSurface().setFrameRate(120, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT);
+//        }
 
     }
 
@@ -74,7 +81,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
         isDrawing = false;
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+        //canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         Scene.end();
     }
 
@@ -85,6 +92,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
         long last_start = System.currentTimeMillis();
         while (isDrawing) {
             long start = System.currentTimeMillis();
+            Scene.startMove();
             drawing(last_start, last_end);
             long end = System.currentTimeMillis();
             while (end - start < minDrawTime) {
@@ -102,7 +110,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
 
     private void drawing(long start, long end) {
         try {
-            canvas = holder.lockCanvas();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                canvas = holder.lockHardwareCanvas();
+            } else {
+                canvas = holder.lockCanvas();
+            }
             if (canvas != null) {
                 canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 canvas.drawColor(Color.WHITE, PorterDuff.Mode.ADD);
@@ -118,33 +130,102 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
                 }
                 canvas.drawText("FPS: " + String.valueOf(mean_fps), 50, 50, string_paint);
                 canvas.drawText("Distance: " + String.valueOf((int) (Scene.distance / 100)), 450, 50, string_paint);
-                for (RectHittableObject o : Scene.rectHittableObjects) {
-                    o.draw(canvas);
-                    if (!o.equals(Scene.player))
-                        if (o.checkHit(Scene.player.getBorderRect())) {
-                            isHit = true;
-                            break;
+                try {
+                    for (int i = 0; i < Scene.rectHittableObjects.size(); i++) {
+                        RectHittableObject o = Scene.rectHittableObjects.get(i);
+                        if (o.getX() > 0 - o.getWidth() - 100)
+                            o.draw(canvas);
+                        else {
+                            Scene.rectHittableObjects.remove(o);
                         }
+                        if (!o.equals(Scene.player))
+                            if (o.checkHit(Scene.player.getBorderRect())) {
+                                isHit = true;
+                                break;
+                            }
+                    }
+                } catch (ConcurrentModificationException e) {
+                    System.out.println("ConcurrentModificationException");
+                }
+                if (DEBUG) {
+                    canvas.drawText("DrawTime: " + String.valueOf((end - start)) + " ms", 50, 100, string_paint);
+                    canvas.drawText("Width: " + String.valueOf(canvas.getWidth()), 50, 150, string_paint);
+                    canvas.drawText("Height: " + String.valueOf(canvas.getHeight()), 50, 200, string_paint);
+                    canvas.drawText("HardwareAccelerated: " + String.valueOf(canvas.isHardwareAccelerated()), 50, 250, string_paint);
+                    canvas.drawText("ClipBounds: " + canvas.getClipBounds().toString(), 50, 300, string_paint);
+                    int count = 0;
+                    for (RectHittableObject o : Scene.rectHittableObjects) {
+                        if (o.getMoveStarted()) {
+                            count += 1;
+                        }
+                        if (!o.equals(Scene.player) && o.getMoveStarted()) {
+                            int x1 = Scene.player.getX();
+                            int y1 = Scene.player.getY();
+                            int x2 = o.getX();
+                            int y2 = o.getY();
+                            int distance = (int) Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+                            Paint paint = new Paint();
+                            paint.setStrokeWidth(5f);
+                            paint.setColor(Color.CYAN);
+
+                            if (distance < 450) {
+                                string_paint.setColor(Color.RED);
+                                string_paint.setTextSize(80);
+                                paint.setColor(Color.RED);
+                                canvas.drawLine(Scene.player.getX(), Scene.player.getY(), o.getX(), o.getY(), paint);
+                                canvas.drawText(String.valueOf(distance), (x1 + x2) / 2, (y1 + y2) / 2, string_paint);
+                                string_paint.setColor(Color.BLACK);
+                                paint.setColor(Color.BLACK);
+                                string_paint.setTextSize(50);
+                            } else {
+                                canvas.drawLine(Scene.player.getX(), Scene.player.getY(), o.getX(), o.getY(), paint);
+                                canvas.drawText(String.valueOf(distance), (x1 + x2) / 2, (y1 + y2) / 2, string_paint);
+                            }
+
+                        }
+                    }
+                    if (DEBUG) {
+                        Paint paint = new Paint();
+                        paint.setTextSize(100);
+                        paint.setColor(Color.RED);
+                        canvas.drawText("DEBUG MODE", (int) (Scene.screenWidth * 0.6), 200, paint);
+                    }
+                    if (Player.getIsJumping() && !isHit) {
+                        canvas.drawText("Need Jump !", (int) (Scene.screenWidth * 0.2), Scene.screenHeight / 2, string_paint1);
+                    }
+                    canvas.drawText("Moving Obj: " + count, 50, 350, string_paint);
+                    canvas.drawText("Jump H: " + Scene.player.getJump_h(), 50, 400, string_paint);
+                    canvas.drawText("Jump: " + Player.getIsJumping(), 50, 450, string_paint);
+                    canvas.drawText("Draw Obj Count: " + Scene.rectHittableObjects.size(), 50, 500, string_paint);
+                    canvas.drawText("Left up: " + String.valueOf(Scene.player.getLeft_up()), Scene.player.getX() - 100, Scene.player.getY() + Player.playerHeight + 100, string_paint);
+
                 }
                 for (Drawable o : Scene.staticObject) {
                     o.draw(canvas);
                 }
-                if(isHit){
+                if (isHit) {
                     System.out.println("HIT!!!!!!!!!!!!!!!!");
-                    canvas.drawText("Game Over !" , (int) (Scene.screenWidth * 0.2), Scene.screenHeight/2, string_paint1);
-                    final Vibrator vibrator=(Vibrator)context.getSystemService(VIBRATOR_SERVICE);
-                    if(vibrator.hasVibrator())
+                    canvas.drawText("Game Over !", (int) (Scene.screenWidth * 0.2), Scene.screenHeight / 2, string_paint1);
+                    final Vibrator vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator())
                         vibrator.vibrate(300);
                     isHit = false;
+                    isGameOver = true;
                     Scene.end();
                     Scene.init_game_object(context);
-                    Scene.startMove();
-
                 }
             }
         } finally {
             if (canvas != null) {
                 holder.unlockCanvasAndPost(canvas);
+                if (isGameOver) {
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    isGameOver = false;
+                }
             }
         }
     }

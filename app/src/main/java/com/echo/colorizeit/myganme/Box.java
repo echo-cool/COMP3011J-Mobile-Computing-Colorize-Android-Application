@@ -9,6 +9,7 @@ import com.example.myapplication.R;
 
 public class Box extends RectHittableObject {
     private Bitmap obstacle;
+    private int speed = Scene.speed;
 
     public Box(int x, int y, int width, int height, Context context) {
         super(x, y, width, height, context);
@@ -19,12 +20,23 @@ public class Box extends RectHittableObject {
 
     @Override
     public void draw(Canvas canvas) {
-//        canvas.drawRect(getBorderRect(), getDefault_paint());
+        if (GameView.DEBUG)
+            canvas.drawRect(getBorderRect(), getDefault_paint());
 
-        if(obstacle== null)
+        if (obstacle == null)
             obstacle = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.obstacle);
         canvas.drawBitmap(obstacle, null, getBorder_rect(), null);
 
     }
 
+    @Override
+    public void moveSingle() {
+        int x = getX() - speed / GameView.FPS;
+        if ((x > 0 - getWidth() - 100 && x <= Scene.screenWidth && getMoveStarted())) {
+            setLocation(x, getY());
+        } else {
+            setMoveStarted(false);
+
+        }
+    }
 }

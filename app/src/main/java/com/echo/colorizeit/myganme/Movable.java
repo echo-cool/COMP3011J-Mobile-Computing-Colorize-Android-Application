@@ -7,4 +7,5 @@ public interface Movable {
     void startMoveLeftX(int speed);
     void startMoveUpY(int speed);
     void startMoveXY(int speedX, int speedY);
+    void moveSingle();
 }

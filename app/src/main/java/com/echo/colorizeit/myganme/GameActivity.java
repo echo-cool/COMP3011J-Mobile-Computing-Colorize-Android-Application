@@ -16,6 +16,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         GameView gameView = new GameView(this);
 //        getSupportActionBar().hide();
+
         setContentView(gameView);
 //        gameView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -30,16 +31,11 @@ public class GameActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
     public void makeFullScreen() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-
-    }
 }
