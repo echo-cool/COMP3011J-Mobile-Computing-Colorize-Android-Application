@@ -10,6 +10,10 @@ import com.echo.colorizeit.BaiduAPI.BaiduImageAPI;
 import com.echo.colorizeit.ImageUtil.PhotoLib;
 import com.echo.colorizeit.Interfaces.RequestsListener;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class ImageUploadActivityViewModel extends ViewModel {
     private BaiduImageAPI baiduImageAPI;
     private String imagePath;

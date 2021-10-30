@@ -4,6 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-10 20:23:07
+ */
 public class Ground implements Drawable {
     private final Paint paint;
 

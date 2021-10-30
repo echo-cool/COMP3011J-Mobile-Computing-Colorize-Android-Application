@@ -7,6 +7,10 @@ import cn.leancloud.LCObject;
 import cn.leancloud.LCUser;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class UserFragmentViewModel extends ViewModel {
     private MutableLiveData<Double> balance;
     private MutableLiveData<Integer> processedCount;

@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-11 11:08:58
+ */
 public class Scene {
     public static int speed = 420;
     public static int distance = 0; //from right of the screen

@@ -18,6 +18,10 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-11 11:26:47
+ */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
     public static final Boolean DEBUG = true;
     public static int FPS = 60;

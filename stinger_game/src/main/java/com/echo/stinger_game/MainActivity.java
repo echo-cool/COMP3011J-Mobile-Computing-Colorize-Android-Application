@@ -7,6 +7,10 @@ import android.os.Bundle;
 
 import com.echo.stinger_game.myganme.GameActivity;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-30 16:08:27
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

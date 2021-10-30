@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class BaseActivity extends AppCompatActivity {
     public static final int READ_WRITE_STORAGE = 52;
     private ProgressDialog mProgressDialog;

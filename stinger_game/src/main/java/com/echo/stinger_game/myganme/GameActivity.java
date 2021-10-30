@@ -8,6 +8,10 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-11 10:40:25
+ */
 public class GameActivity extends AppCompatActivity {
 
     @Override

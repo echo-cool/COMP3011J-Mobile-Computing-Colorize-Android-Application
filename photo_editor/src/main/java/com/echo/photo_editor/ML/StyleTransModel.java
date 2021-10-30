@@ -13,6 +13,10 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.IOException;
 
+/**
+ * @author WangYuyang
+ * @date 2021-09-22 13:54:24
+ */
 public class StyleTransModel implements MLModel {
     private Context context;
 

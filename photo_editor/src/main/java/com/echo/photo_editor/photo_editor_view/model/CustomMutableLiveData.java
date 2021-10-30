@@ -4,6 +4,10 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Observable;
 import androidx.lifecycle.MutableLiveData;
 
+/**
+ * @author WangYuyang
+ * @date 2021-10-30 15:23:14
+ */
 public class CustomMutableLiveData<T extends BaseObservable>
         extends MutableLiveData<T> {
 

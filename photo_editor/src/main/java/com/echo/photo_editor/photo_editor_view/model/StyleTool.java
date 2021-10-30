@@ -7,6 +7,10 @@ import android.view.View;
 import com.echo.photo_editor.ML.ProcessListener;
 import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
 
+/**
+ * @author WangYuyang
+ * @date 2021-10-29 22:51:42
+ */
 public class StyleTool extends Tool {
     public Bitmap style_image;
 

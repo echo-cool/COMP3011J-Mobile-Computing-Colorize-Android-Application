@@ -26,7 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.echo.colorizeit.ImageUtil.GlideEngine;
+import com.echo.colorizeit.ImageUtil.thirdparty.GlideEngine;
 import com.echo.colorizeit.Util;
 import com.echo.stinger_game.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseFragment;
@@ -43,6 +43,10 @@ import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
 
 import java.util.List;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class MainIndexPageFragment extends BaseFragment {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 

@@ -6,6 +6,10 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-10 21:47:23
+ */
 public abstract class RectHittableObject implements Hittable, Movable, Drawable {
     private int x;
     private int y;

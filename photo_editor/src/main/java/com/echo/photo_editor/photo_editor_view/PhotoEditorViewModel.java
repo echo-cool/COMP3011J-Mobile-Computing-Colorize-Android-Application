@@ -11,6 +11,10 @@ import com.echo.photo_editor.photo_editor_view.model.EditableImage;
 
 import java.util.ArrayList;
 
+/**
+ * @author WangYuyang
+ * @date 2021-10-29 12:34:44
+ */
 public class PhotoEditorViewModel extends ViewModel {
     private MutableLiveData<String> sourceFilePath = new MutableLiveData<>("");
     private CustomMutableLiveData<EditableImage> editableImage = new CustomMutableLiveData<>();

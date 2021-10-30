@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
+/**
+ * @author WangYuyang
+ * @date 2021-10-30 14:07:24
+ */
 public class EditableImage extends BaseObservable {
     private Bitmap current_bitmap;
     private Bitmap source_bitmap;

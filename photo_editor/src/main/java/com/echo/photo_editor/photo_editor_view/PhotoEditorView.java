@@ -27,6 +27,10 @@ import com.echo.photo_editor.photo_editor_view.model.Toolbox;
 
 import java.util.ArrayList;
 
+/**
+ * @author WangYuyang
+ * @date 2021-10-29 12:33:11
+ */
 public class PhotoEditorView extends AppCompatActivity {
     public PhotoEditorViewModel model;
     private ActivityPhotoEditorBinding binding;

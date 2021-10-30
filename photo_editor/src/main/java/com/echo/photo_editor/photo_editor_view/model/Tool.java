@@ -3,6 +3,10 @@ package com.echo.photo_editor.photo_editor_view.model;
 import android.graphics.Bitmap;
 import android.view.View;
 
+/**
+ * @author WangYuyang
+ * @date 2021-10-29 20:19:41
+ */
 public class Tool implements ToolBarItem {
     public String name;
     public Bitmap image;

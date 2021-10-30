@@ -14,6 +14,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class PhotoLib {
     public static byte[] BitmapToBytes(Bitmap img){
         int bytes = img.getByteCount();

@@ -35,6 +35,10 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;

@@ -31,6 +31,10 @@ import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
 
 import ch.halcyon.squareprogressbar.utils.PercentStyle;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class ImageUploadViewActivity extends BaseActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ImageColorizeUploadActivityBinding binding;

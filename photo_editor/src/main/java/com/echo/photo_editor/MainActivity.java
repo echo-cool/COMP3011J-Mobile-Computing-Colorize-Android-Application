@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.echo.photo_editor.databinding.ActivityMainBinding;
 import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
+import com.echo.photo_editor.thirdparty.GlideEngine;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -16,6 +17,10 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 
 import java.util.List;
 
+/**
+ * @author WangYuyang
+ * @date 2021-10-30 15:56:43
+ */
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private MainActivity _this = this;
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        //-----------------------------TEST Image-------------------------------
         sourceFilePath = "/storage/emulated/0/Pictures/Colorized Image (26).jpg";
         Intent intent = new Intent(_this, PhotoEditorView.class);
         intent.putExtra("sourceFilePath", sourceFilePath);

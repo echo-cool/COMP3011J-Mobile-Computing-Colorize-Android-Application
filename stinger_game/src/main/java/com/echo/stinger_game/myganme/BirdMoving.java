@@ -4,6 +4,10 @@ import android.content.Context;
 
 import java.util.Random;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-11 15:38:36
+ */
 public class BirdMoving extends Bird {
     private int randomNum = 0;
 

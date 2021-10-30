@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class GalleryFragment extends BaseFragment {
 
     private GalleryViewModel model;

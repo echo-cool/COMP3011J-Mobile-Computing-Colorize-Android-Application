@@ -16,11 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.echo.colorizeit.ML.ProcessListener;
-import com.echo.colorizeit.ML.StyleTransModel;
 import com.echo.colorizeit.ui.BaseFragment;
-import com.echo.colorizeit.ImageUtil.GlideEngine;
+import com.echo.colorizeit.ImageUtil.thirdparty.GlideEngine;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentImageColorizeBinding;
@@ -33,6 +30,10 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 
 import java.util.List;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class ImageProcessTESTFragment extends BaseFragment {
 
     private ImageProcessTESTViewModel model;
@@ -40,7 +41,6 @@ public class ImageProcessTESTFragment extends BaseFragment {
     private ImageProcessTESTFragment _this = this;
     private String sourceFilePath;
 
-    private StyleTransModel styleTransModel;
 
 //    private ActivityResultLauncher requestPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
 //        @Override
@@ -57,7 +57,7 @@ public class ImageProcessTESTFragment extends BaseFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        styleTransModel = new StyleTransModel(getContext());
+//        styleTransModel = new StyleTransModel(getContext());
 //        superResolutionModel = new SuperResolutionModel(getContext());
         model =
                 new ViewModelProvider(this).get(ImageProcessTESTViewModel.class);
@@ -139,21 +139,21 @@ public class ImageProcessTESTFragment extends BaseFragment {
 //                        imageColorizeViewModel.setColorizedImageBitmap(styledImageBitmap);
 //                    }
 //                });
-                styleTransModel.process(sourceFilePath, new ProcessListener() {
-                    @Override
-                    public void success(String data) {
-                        hideLoading();
-                    }
-                    @Override
-                    public void failure(String info) {
-                        hideLoading();
-                    }
-                    @Override
-                    public void success(Bitmap styledImageBitmap) {
-                        model.setColorizedImageBitmap(styledImageBitmap);
-                        hideLoading();
-                    }
-                });
+//                styleTransModel.process(sourceFilePath, new ProcessListener() {
+//                    @Override
+//                    public void success(String data) {
+//                        hideLoading();
+//                    }
+//                    @Override
+//                    public void failure(String info) {
+//                        hideLoading();
+//                    }
+//                    @Override
+//                    public void success(Bitmap styledImageBitmap) {
+//                        model.setColorizedImageBitmap(styledImageBitmap);
+//                        hideLoading();
+//                    }
+//                });
 
             }
         });

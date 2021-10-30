@@ -3,6 +3,10 @@ package com.echo.stinger_game.myganme;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-10 15:49:05
+ */
 public interface Hittable {
     Rect getBorderRect();
 

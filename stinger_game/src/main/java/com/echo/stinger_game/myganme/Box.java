@@ -7,6 +7,10 @@ import android.graphics.Canvas;
 
 import com.echo.stinger_game.R;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-11 10:28:11
+ */
 public class Box extends RectHittableObject {
     private Bitmap obstacle;
     private final int speed = Scene.speed;

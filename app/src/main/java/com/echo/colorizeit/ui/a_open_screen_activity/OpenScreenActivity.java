@@ -25,6 +25,10 @@ import com.echo.colorizeit.ui.BaseActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.OpenScreenBinding;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class OpenScreenActivity extends BaseActivity {
     private OpenScreenBinding binding;
     private Activity _this = this;

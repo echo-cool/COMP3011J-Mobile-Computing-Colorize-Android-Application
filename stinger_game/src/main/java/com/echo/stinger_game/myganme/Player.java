@@ -11,6 +11,10 @@ import android.graphics.Rect;
 import com.echo.stinger_game.R;
 
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-10-11 10:48:52
+ */
 public class Player extends RectHittableObject {
     public static final int playerWidth = 150;
     public static final int playerHeight = 150;

@@ -12,6 +12,11 @@ import cn.leancloud.LCUser;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
+
 public class OpenScreenViewModel extends ViewModel {
     private MutableLiveData<SharedPreferences> setting;
     private MutableLiveData<Boolean> Is_user_first_enter_this_app;

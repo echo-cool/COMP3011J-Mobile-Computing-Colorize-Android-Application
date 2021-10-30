@@ -5,7 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 /**
- * Created by onkar_nene on 02-02-2016.
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
  */
 public class ResizableImageView extends androidx.appcompat.widget.AppCompatImageView {
     public ResizableImageView(Context context, AttributeSet attributeSet) {

@@ -5,6 +5,10 @@ import android.app.Application;
 import cn.leancloud.LCLogger;
 import cn.leancloud.LeanCloud;
 
+/**
+ * @author Wang Yuyang
+ * @date 2021-09-22 13:52:43
+ */
 public class APP extends Application {
     @Override
     public void onCreate() {
