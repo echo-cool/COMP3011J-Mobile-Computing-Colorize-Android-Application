@@ -28,7 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.echo.colorizeit.ImageUtil.GlideEngine;
 import com.echo.colorizeit.Util;
-import com.echo.colorizeit.myganme.GameActivity;
+import com.echo.stinger_game.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseFragment;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.echo.colorizeit.ui.v_others.ResizableImageView;

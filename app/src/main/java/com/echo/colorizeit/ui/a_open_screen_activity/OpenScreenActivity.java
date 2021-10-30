@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.echo.colorizeit.MainActivity;
-import com.echo.colorizeit.myganme.GameActivity;
+import com.echo.stinger_game.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.OpenScreenBinding;

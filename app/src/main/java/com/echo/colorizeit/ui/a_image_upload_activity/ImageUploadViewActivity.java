@@ -22,7 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.echo.colorizeit.Util;
-import com.echo.colorizeit.myganme.GameActivity;
+import com.echo.stinger_game.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseActivity;
 import com.echo.colorizeit.ImageUtil.PhotoLib;
 import com.echo.colorizeit.Interfaces.RequestsListener;
