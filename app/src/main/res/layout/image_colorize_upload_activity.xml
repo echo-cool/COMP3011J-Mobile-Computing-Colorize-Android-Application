@@ -21,6 +21,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/meachine_view_anim"
         android:layout_width="200dp"
@@ -45,8 +46,8 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:scaleType="fitCenter"
         android:paddingTop="20dp"
+        android:scaleType="fitCenter"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ShareButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,9 +98,8 @@
 
     <com.karacce.buttom.Buttom
         android:id="@+id/SaveImageButton"
-        android:layout_width="0dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:enabled="false"
@@ -112,7 +112,24 @@
         app:buttom_gradient_type="linear"
         app:buttom_type="gradient"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.karacce.buttom.Buttom
+        android:id="@+id/ContinueEditingButton"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="32dp"
+        android:enabled="false"
+        android:text="Continue Editing"
+        android:textColor="@color/white"
+        app:buttom_corner_radius="30dp"
+        app:buttom_gradient_end_color="#3F51B5"
+        app:buttom_gradient_orientation="left_right"
+        app:buttom_gradient_start_color="#00BCD4"
+        app:buttom_gradient_type="linear"
+        app:buttom_type="gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView

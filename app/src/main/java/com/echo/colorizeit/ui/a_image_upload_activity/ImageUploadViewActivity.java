@@ -21,11 +21,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
 
-import com.echo.colorizeit.Util;
-import com.echo.stinger_game.myganme.GameActivity;
-import com.echo.colorizeit.ui.BaseActivity;
 import com.echo.colorizeit.ImageUtil.PhotoLib;
 import com.echo.colorizeit.Interfaces.RequestsListener;
+import com.echo.colorizeit.Util;
+import com.echo.colorizeit.ui.BaseActivity;
+import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
+import com.echo.stinger_game.myganme.GameActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
 
@@ -153,7 +154,14 @@ public class ImageUploadViewActivity extends BaseActivity {
         binding.ShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = MediaStore.Images.Media.insertImage(getContentResolver(), model.getColorizedImageBitmap(), "Colorized Image", ":)");
+                String data = MediaStore.Images.Media.insertImage(getContentResolver(), model.getColorizedImageBitmap(), String.valueOf(System.currentTimeMillis()), ":)");
+                while (data== null){
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 ColorizedImageUri = Uri.parse(data);
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
@@ -192,6 +200,18 @@ public class ImageUploadViewActivity extends BaseActivity {
             }
         });
 
+        binding.ContinueEditingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("ContinueEditingButton");
+                String data = PhotoLib.saveImageToGallery(getApplicationContext(), model.getColorizedImageBitmap());
+                Intent intent = new Intent(_this, PhotoEditorView.class);
+                intent.putExtra("sourceFilePath", data);
+                startActivity(intent);
+
+            }
+        });
+
 
         setContentView(binding.getRoot());
     }
@@ -213,6 +233,7 @@ public class ImageUploadViewActivity extends BaseActivity {
                         binding.ShareButton.setEnabled(true);
                         binding.SaveImageButton.setEnabled(true);
                         binding.CompareButton.setEnabled(true);
+                        binding.ContinueEditingButton.setEnabled(true);
                         binding.uploadFinishAnimationView.playAnimation();
                         Animation animation_fade_out = AnimationUtils.loadAnimation(_this, R.anim.fade_out);
                         Animation animation_fade_out1 = AnimationUtils.loadAnimation(_this, R.anim.fade_out);

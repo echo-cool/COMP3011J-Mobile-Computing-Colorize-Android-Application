@@ -1,10 +1,9 @@
-package com.echo.colorizeit.ImageUtil;
+package com.echo.photo_editor.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 
@@ -19,22 +18,25 @@ import java.nio.ByteBuffer;
  * @date 2021-09-22 13:52:43
  */
 public class PhotoLib {
-    public static byte[] BitmapToBytes(Bitmap img){
+    public static byte[] BitmapToBytes(Bitmap img) {
         int bytes = img.getByteCount();
         ByteBuffer buf = ByteBuffer.allocate(bytes);
         img.copyPixelsToBuffer(buf);
         byte[] byteArray = buf.array();
         return byteArray;
     }
-    public static Bitmap BytesToBitmap(byte[] bytes){
+
+    public static Bitmap BytesToBitmap(byte[] bytes) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap;
     }
-    public static Bitmap Base64ToBitmap(String data){
+
+    public static Bitmap Base64ToBitmap(String data) {
         byte[] decodedString = Base64.decode(data, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         return decodedByte;
     }
+
     public static String saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
         File appDir = context.getFilesDir();
@@ -67,9 +69,11 @@ public class PhotoLib {
 //        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
         return file.getAbsolutePath();
     }
-    public static String getRandomFileName(){
+
+    public static String getRandomFileName() {
         return System.currentTimeMillis() + ".jpg";
     }
+
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);

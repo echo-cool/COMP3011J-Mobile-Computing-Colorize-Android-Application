@@ -77,8 +77,8 @@ public class GalleryFragment extends BaseFragment {
     }
     private List<String> getImagePathList(){
         List<String> data = new ArrayList<>();
-        File skRoot = Environment.getExternalStorageDirectory();
-        data = Util.getFilesAllName(skRoot.getPath()+"/Colorize");
+        data = Util.getFilesAllName(this.getContext().getFilesDir());
+        System.out.println(this.getContext().getFilesDir());
         return data;
     }
     private List<rcImage> getRcImageList(){

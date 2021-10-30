@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         //-----------------------------TEST Image-------------------------------
-        sourceFilePath = "/storage/emulated/0/Pictures/Colorized Image (26).jpg";
-        Intent intent = new Intent(_this, PhotoEditorView.class);
-        intent.putExtra("sourceFilePath", sourceFilePath);
-        startActivity(intent);
+//        sourceFilePath = "/storage/emulated/0/Pictures/Colorized Image (26).jpg";
+//        Intent intent = new Intent(_this, PhotoEditorView.class);
+//        intent.putExtra("sourceFilePath", sourceFilePath);
+//        startActivity(intent);
         binding.chooseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

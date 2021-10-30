@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ import com.echo.photo_editor.photo_editor_view.model.EditableImage;
 import com.echo.photo_editor.photo_editor_view.model.StyleTool;
 import com.echo.photo_editor.photo_editor_view.model.Tool;
 import com.echo.photo_editor.photo_editor_view.model.Toolbox;
+import com.echo.photo_editor.util.PhotoLib;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -82,6 +85,14 @@ public class PhotoEditorView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 model.getEditableImage().getValue().undo();
+            }
+        });
+        binding.SaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoLib.saveImageToGallery(_this,model.getEditableImage().getValue().getCurrent_bitmap());
+                showSnackbar("Image saved !");
+
             }
         });
 
@@ -147,6 +158,21 @@ public class PhotoEditorView extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    protected void showSnackbar(@NonNull String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View view = _this.findViewById(android.R.id.content);
+                if (view != null) {
+                    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(_this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
