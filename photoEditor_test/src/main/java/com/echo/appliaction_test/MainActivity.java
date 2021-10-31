@@ -1,18 +1,17 @@
 package com.echo.appliaction_test;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.echo.appliaction_test.databinding.ActivityMainBinding;
 import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
 import com.echo.photo_editor.thirdparty.GlideEngine;
+import com.echo.stinger_game.myganme.GameActivity;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -21,7 +20,9 @@ import com.luck.picture.lib.listener.OnResultCallbackListener;
 
 import org.tensorflow.lite.support.image.TensorImage;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -40,6 +41,33 @@ public class MainActivity extends AppCompatActivity {
 //        intent.putExtra("sourceFilePath", sourceFilePath);
 //        startActivity(intent);
         setContentView(binding.getRoot());
+        TextView textView = binding.textView2;
+        TextView textView1 = binding.textView3;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SS");// HH:mm:ss
+                                Date date = new Date(System.currentTimeMillis());
+                                textView1.setText(simpleDateFormat.format(date));
+                                textView.setText(String.valueOf(System.currentTimeMillis()));
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    });
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                }
+            }
+        }).start();
         binding.ChooseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,42 +81,11 @@ public class MainActivity extends AppCompatActivity {
                             public void onResult(List<LocalMedia> result) {
 
                                 sourceFilePath = result.get(0).getRealPath();
-                                Bitmap img = BitmapFactory.decodeFile(sourceFilePath);
+//                                Bitmap img = BitmapFactory.decodeFile(sourceFilePath);
+                                Intent intent = new Intent(_this, PhotoEditorView.class);
+                                intent.putExtra("sourceFilePath", sourceFilePath);
+                                startActivity(intent);
 
-                                if (!check_is_grayscale(img)) {
-                                    final AlertDialog.Builder alterDialog = new AlertDialog.Builder(_this);
-
-                                    alterDialog.setTitle("Is this a grayscale image ?");//文字
-                                    alterDialog.setMessage("We think the image you choose is not a grayscale image, are you sure you want to upload ?");//提示消息
-                                    alterDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Intent intent = new Intent(_this, PhotoEditorView.class);
-                                            intent.putExtra("sourceFilePath", sourceFilePath);
-                                            startActivity(intent);
-                                        }
-                                    });
-
-                                    alterDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    });
-                                    alterDialog.show();
-                                } else {
-//                                System.out.println(img.describeContents());
-//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                                    System.out.println(img.getColorSpace());
-//                                }
-//                                TensorImage tensorImage = TensorImage.fromBitmap(img);
-//                                System.out.println(Arrays.toString(tensorImage.getTensorBuffer().getShape()));
-//                                System.out.println(Arrays.toString(tensorImage.getTensorBuffer().getIntArray()));
-//                                System.out.println(tensorImage.getTensorBuffer().getIntArray().length);
-                                    Intent intent = new Intent(_this, PhotoEditorView.class);
-                                    intent.putExtra("sourceFilePath", sourceFilePath);
-                                    startActivity(intent);
-                                }
                             }
 
                             @Override
@@ -98,6 +95,43 @@ public class MainActivity extends AppCompatActivity {
                         });
             }
         });
+        binding.ImageInformationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PictureSelector.create(_this)
+                        .openGallery(PictureMimeType.ofAll())
+                        .imageEngine(GlideEngine.createGlideEngine())
+                        .selectionMode(PictureConfig.SINGLE)
+                        .forResult(new OnResultCallbackListener<LocalMedia>() {
+                            @Override
+                            public void onResult(List<LocalMedia> result) {
+
+                                sourceFilePath = result.get(0).getRealPath();
+//                                Bitmap img = BitmapFactory.decodeFile(sourceFilePath);
+                                Intent intent = new Intent(_this, Image_information_activity.class);
+                                intent.putExtra("sourceFilePath", sourceFilePath);
+                                startActivity(intent);
+
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                // 取消
+                            }
+                        });
+            }
+        });
+
+
+        binding.gameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(_this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     public static Boolean check_is_grayscale(Bitmap img) {
