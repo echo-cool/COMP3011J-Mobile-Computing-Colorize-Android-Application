@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import com.echo.photo_editor.ml.LiteModelZeroDce1;
 
 import org.tensorflow.lite.DataType;
-import org.tensorflow.lite.support.common.TensorProcessor;
 import org.tensorflow.lite.support.image.ImageProcessor;
 import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.image.ops.ResizeOp;
@@ -29,7 +28,7 @@ public class LowLightModel {
         this.context = context;
     }
 
-    public void process(Bitmap source, ProcessListener listener) {
+    public void process(Bitmap source, ImageProcessListener listener) {
         new Thread(new Runnable() {
             @Override
             public void run() {

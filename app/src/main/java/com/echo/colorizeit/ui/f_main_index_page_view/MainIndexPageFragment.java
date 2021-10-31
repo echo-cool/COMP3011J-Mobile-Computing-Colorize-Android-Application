@@ -1,7 +1,6 @@
 package com.echo.colorizeit.ui.f_main_index_page_view;
 
 import static androidx.core.content.ContextCompat.checkSelfPermission;
-
 import static com.echo.colorizeit.Util.check_is_grayscale;
 
 import android.Manifest;
@@ -35,7 +34,6 @@ import com.echo.colorizeit.Util;
 import com.echo.colorizeit.ui.BaseFragment;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.echo.colorizeit.ui.v_others.ResizableImageView;
-import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
 import com.echo.stinger_game.myganme.GameActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentSlideshowBinding;
@@ -45,6 +43,8 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
+
+import org.tensorflow.lite.support.image.TensorImage;
 
 import java.util.List;
 
@@ -145,34 +145,42 @@ public class MainIndexPageFragment extends BaseFragment {
                                 public void onResult(List<LocalMedia> result) {
                                     sourceFilePath = result.get(0).getRealPath();
                                     Bitmap img = BitmapFactory.decodeFile(sourceFilePath);
+                                    TensorImage image = TensorImage.fromBitmap(img);
+                                    if (image.getTensorBuffer().getFlatSize() < 10000000) {
 
-                                    if (!check_is_grayscale(img)) {
-                                        final AlertDialog.Builder alterDialog = new AlertDialog.Builder(getActivity());
 
-                                        alterDialog.setTitle("Is this a grayscale image ?");//文字
-                                        alterDialog.setMessage("We think the image you choose is not a grayscale image, are you sure you want to upload ?");//提示消息
-                                        alterDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
-                                                intent.putExtra("sourceFilePath", sourceFilePath);
-                                                startActivity(intent);
-                                            }
-                                        });
+                                        if (!check_is_grayscale(img)) {
+                                            final AlertDialog.Builder alterDialog = new AlertDialog.Builder(getActivity());
 
-                                        alterDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
+                                            alterDialog.setTitle("Is this a grayscale image ?");//文字
+                                            alterDialog.setMessage("We think the image you choose is not a grayscale image, are you sure you want to upload ?");//提示消息
+                                            alterDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
+                                                    intent.putExtra("sourceFilePath", sourceFilePath);
+                                                    startActivity(intent);
+                                                }
+                                            });
 
-                                            }
-                                        });
-                                        alterDialog.show();
-                                    } else {
-                                        Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
-                                        intent.putExtra("sourceFilePath", sourceFilePath);
-                                        startActivity(intent);
+                                            alterDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            });
+                                            alterDialog.show();
+                                        } else {
+                                            Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
+                                            intent.putExtra("sourceFilePath", sourceFilePath);
+                                            startActivity(intent);
+                                        }
+                                    }
+                                    else{
+                                        showSnackbar("This image is too big, it can't be uploaded.");
                                     }
                                 }
+
 
                                 @Override
                                 public void onCancel() {

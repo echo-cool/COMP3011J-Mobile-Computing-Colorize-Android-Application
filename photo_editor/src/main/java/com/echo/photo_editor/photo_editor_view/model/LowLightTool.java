@@ -3,7 +3,7 @@ package com.echo.photo_editor.photo_editor_view.model;
 import android.graphics.Bitmap;
 import android.view.View;
 
-import com.echo.photo_editor.ML.ProcessListener;
+import com.echo.photo_editor.ML.ImageProcessListener;
 import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
 
 /**
@@ -19,7 +19,7 @@ public class LowLightTool extends Tool{
         super.listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                view.lowLightModel.process(view.model.getEditableImage().getValue().getCurrent_bitmap(), new ProcessListener() {
+                view.lowLightModel.process(view.model.getEditableImage().getValue().getCurrent_bitmap(), new ImageProcessListener() {
                     @Override
                     public void start() {
                         view.showLoading("(On-Device ML) Processing....");

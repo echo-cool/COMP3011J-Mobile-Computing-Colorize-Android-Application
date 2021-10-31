@@ -25,7 +25,7 @@ public class StyleTransModel implements StyleMLModel {
     }
 
     @Override
-    public void process(String path, ProcessListener listener) {
+    public void process(String path, ImageProcessListener listener) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -65,7 +65,7 @@ public class StyleTransModel implements StyleMLModel {
     }
 
     @Override
-    public void process(Bitmap img_style, Bitmap img_to_be_process, ProcessListener listener) {
+    public void process(Bitmap img_style, Bitmap img_to_be_process, ImageProcessListener listener) {
         new Thread(new Runnable() {
             @Override
             public void run() {

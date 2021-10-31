@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,12 +25,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.echo.colorizeit.ImageUtil.PhotoLib;
 import com.echo.colorizeit.Interfaces.RequestsListener;
+import com.echo.colorizeit.ML.CategoryProcessListener;
+import com.echo.colorizeit.ML.LabelerModel;
 import com.echo.colorizeit.Util;
 import com.echo.colorizeit.ui.BaseActivity;
 import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
 import com.echo.stinger_game.myganme.GameActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
+
+import org.tensorflow.lite.support.label.Category;
+
+import java.util.Comparator;
+import java.util.List;
 
 import ch.halcyon.squareprogressbar.utils.PercentStyle;
 
@@ -43,6 +52,8 @@ public class ImageUploadViewActivity extends BaseActivity {
     private ImageView imageDisplay;
     private Uri ColorizedImageUri;
     private ImageUploadViewActivity _this = this;
+    private LabelerModel labelerModel = new LabelerModel(this);
+    private LabelAdapter labelAdapter = new LabelAdapter();
 
 
     @Override
@@ -66,6 +77,7 @@ public class ImageUploadViewActivity extends BaseActivity {
 //                imageDisplay.setProgress(integer);
 //            }
 //        });
+        binding.lableView.setAdapter(labelAdapter);
         model.setImageViewDataByPath(intent.getStringExtra("sourceFilePath"));
         binding.imageProcessingAnimation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +167,7 @@ public class ImageUploadViewActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String data = MediaStore.Images.Media.insertImage(getContentResolver(), model.getColorizedImageBitmap(), String.valueOf(System.currentTimeMillis()), ":)");
-                while (data== null){
+                while (data == null) {
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
@@ -220,6 +232,44 @@ public class ImageUploadViewActivity extends BaseActivity {
         PercentStyle percentStyle = new PercentStyle(Paint.Align.CENTER, 190, true);
         percentStyle.setTextColor(Color.GRAY);
 
+        labelerModel.process(model.getSourceImageBitmap(), new CategoryProcessListener() {
+            @Override
+            public void start() {
+
+            }
+
+            @Override
+            public void success(List<Category> result) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    result.sort(new Comparator<Category>() {
+                        @Override
+                        public int compare(Category o1, Category o2) {
+                            return (int) (o2.getScore() * 100 - o1.getScore() * 100);
+                        }
+                    });
+                }
+                for (Category c : result) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(c.getScore() >= 0.01)
+                                labelAdapter.addLabels(c.getLabel() + ":" + c.getScore());
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void failed(String message) {
+
+            }
+
+            @Override
+            public void complete() {
+
+            }
+        });
 
         model.processImage(new RequestsListener() {
             @Override

@@ -28,6 +28,7 @@
         android:layout_height="80dp"
         android:scaleType="fitCenter"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backButton"
@@ -38,11 +39,10 @@
     <ImageView
         android:id="@+id/imageDisplay"
         android:layout_width="0dp"
-        android:layout_height="328dp"
+        android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
@@ -52,9 +52,21 @@
         app:layout_constraintBottom_toTopOf="@+id/ShareButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:srcCompat="@drawable/accept">
 
     </ImageView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lable_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/imageDisplay"
+        app:layout_constraintEnd_toEndOf="@+id/imageDisplay"
+        app:layout_constraintStart_toStartOf="@+id/imageDisplay"
+        tools:listitem="@layout/lable_item" />
 
     <com.karacce.buttom.Buttom
         android:id="@+id/CompareButton"

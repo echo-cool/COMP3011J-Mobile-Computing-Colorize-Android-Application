@@ -10,5 +10,5 @@ import android.graphics.Bitmap;
  * @Description:
  **/
 public interface SuperResMLModel {
-    void process(Bitmap source, ProcessListener listener);
+    void process(Bitmap source, ImageProcessListener listener);
 }
