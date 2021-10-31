@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author WangYuyang
  * @date 2021-09-22 13:54:24
  */
-public class StyleTransModel implements MLModel {
+public class StyleTransModel implements StyleMLModel {
     private Context context;
 
     public StyleTransModel(Context context) {

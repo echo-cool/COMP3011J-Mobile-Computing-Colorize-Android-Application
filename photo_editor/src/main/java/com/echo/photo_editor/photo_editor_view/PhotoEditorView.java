@@ -2,7 +2,6 @@ package com.echo.photo_editor.photo_editor_view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
@@ -11,17 +10,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.echo.photo_editor.ML.ProcessListener;
+import com.echo.photo_editor.ML.LowLightModel;
 import com.echo.photo_editor.ML.StyleTransModel;
 import com.echo.photo_editor.R;
 import com.echo.photo_editor.databinding.ActivityPhotoEditorBinding;
 import com.echo.photo_editor.photo_editor_view.adapter.ImagePreviewAdapter;
 import com.echo.photo_editor.photo_editor_view.model.EditableImage;
+import com.echo.photo_editor.photo_editor_view.model.LowLightTool;
 import com.echo.photo_editor.photo_editor_view.model.StyleTool;
 import com.echo.photo_editor.photo_editor_view.model.Tool;
 import com.echo.photo_editor.photo_editor_view.model.Toolbox;
@@ -40,8 +39,8 @@ public class PhotoEditorView extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private ImagePreviewAdapter imagePreviewAdapter;
     public StyleTransModel styleTransModel = new StyleTransModel(this);
+    public LowLightModel lowLightModel = new LowLightModel(this);
     private PhotoEditorView _this = this;
-
 
 
     @Override
@@ -90,7 +89,7 @@ public class PhotoEditorView extends AppCompatActivity {
         binding.SaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoLib.saveImageToGallery(_this,model.getEditableImage().getValue().getCurrent_bitmap());
+                PhotoLib.saveImageToGallery(_this, model.getEditableImage().getValue().getCurrent_bitmap());
                 showSnackbar("Image saved !");
 
             }
@@ -145,8 +144,20 @@ public class PhotoEditorView extends AppCompatActivity {
         style_trans.getTools().add(the_scream);
         style_trans.getTools().add(udnie);
 
+        LowLightTool lowLightTool = new LowLightTool(
+                "LowLight",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher),
+                this
+        );
+        Toolbox lowLightToolBox = new Toolbox(
+                "Lowlight",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.tool_tmp_image)
+        );
+        lowLightToolBox.getTools().add(lowLightTool);
 
         toolboxes.add(style_trans);
+        toolboxes.add(lowLightToolBox);
+
         imagePreviewAdapter = new ImagePreviewAdapter(toolboxes);
         binding.imagePreviewRcView.setAdapter(imagePreviewAdapter);
 

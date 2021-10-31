@@ -24,7 +24,7 @@ public class StyleTool extends Tool {
                 view.styleTransModel.process(style_image, view.model.getEditableImage().getValue().getCurrent_bitmap(), new ProcessListener() {
                     @Override
                     public void start() {
-                        view.showLoading("Processing....");
+                        view.showLoading("(On-Device ML) Processing....");
 
                     }
 

@@ -1,15 +1,20 @@
 package com.echo.colorizeit;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import org.tensorflow.lite.support.image.TensorImage;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import cn.leancloud.LCObject;
 import cn.leancloud.LCUser;
@@ -122,6 +127,32 @@ public class Util {
         Log.d("ID:", android_id);
 
         return android_id;
+    }
+
+    public static Boolean check_is_grayscale(Bitmap img){
+        int pixel_count = 0;
+        TensorImage image = TensorImage.fromBitmap(img);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[] imageIntArray = image.getTensorBuffer().getIntArray();
+        Random random = new Random(imageIntArray.length);
+        for (int i = 0; i < 100; i++) {
+            int pixel_index = random.nextInt(width * height);
+            int R = imageIntArray[3 * pixel_index];
+            int G = imageIntArray[3 * pixel_index + 1];
+            int B = imageIntArray[3 * pixel_index + 2];
+            System.out.println(Arrays.toString(new int[]{R,G,B}));
+            if(R==G && R ==B && B == G){
+                pixel_count++;
+            }
+        }
+        System.out.println(pixel_count);
+        if(pixel_count > 50) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 

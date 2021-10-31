@@ -2,10 +2,14 @@ package com.echo.colorizeit.ui.f_main_index_page_view;
 
 import static androidx.core.content.ContextCompat.checkSelfPermission;
 
+import static com.echo.colorizeit.Util.check_is_grayscale;
+
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -28,10 +32,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.echo.colorizeit.ImageUtil.thirdparty.GlideEngine;
 import com.echo.colorizeit.Util;
-import com.echo.stinger_game.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseFragment;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.echo.colorizeit.ui.v_others.ResizableImageView;
+import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
+import com.echo.stinger_game.myganme.GameActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentSlideshowBinding;
 import com.luck.picture.lib.PictureSelector;
@@ -139,9 +144,34 @@ public class MainIndexPageFragment extends BaseFragment {
                                 @Override
                                 public void onResult(List<LocalMedia> result) {
                                     sourceFilePath = result.get(0).getRealPath();
-                                    Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
-                                    intent.putExtra("sourceFilePath", sourceFilePath);
-                                    startActivity(intent);
+                                    Bitmap img = BitmapFactory.decodeFile(sourceFilePath);
+
+                                    if (!check_is_grayscale(img)) {
+                                        final AlertDialog.Builder alterDialog = new AlertDialog.Builder(getActivity());
+
+                                        alterDialog.setTitle("Is this a grayscale image ?");//文字
+                                        alterDialog.setMessage("We think the image you choose is not a grayscale image, are you sure you want to upload ?");//提示消息
+                                        alterDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
+                                                intent.putExtra("sourceFilePath", sourceFilePath);
+                                                startActivity(intent);
+                                            }
+                                        });
+
+                                        alterDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                                        alterDialog.show();
+                                    } else {
+                                        Intent intent = new Intent(getActivity(), ImageUploadViewActivity.class);
+                                        intent.putExtra("sourceFilePath", sourceFilePath);
+                                        startActivity(intent);
+                                    }
                                 }
 
                                 @Override
@@ -159,11 +189,10 @@ public class MainIndexPageFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (Util.getRemaining() > 0) {
-                    if(checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    if (checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         requestPermissions(new String[]{Manifest.permission.CAMERA},
                                 100);
-                    }
-                    else {
+                    } else {
 //                        Intent intent = new Intent(getActivity(), CameraKitActivity.class);
 //                        startActivity(intent);
                         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -188,7 +217,6 @@ public class MainIndexPageFragment extends BaseFragment {
 
         return root;
     }
-
 
 
     @Override
