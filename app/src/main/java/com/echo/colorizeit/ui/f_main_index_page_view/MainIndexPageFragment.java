@@ -33,6 +33,7 @@ import com.echo.colorizeit.ImageUtil.thirdparty.GlideEngine;
 import com.echo.colorizeit.Util;
 import com.echo.colorizeit.ui.BaseFragment;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
+import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
 import com.echo.colorizeit.ui.v_others.ResizableImageView;
 import com.echo.stinger_game.myganme.GameActivity;
 import com.example.myapplication.R;
@@ -47,6 +48,8 @@ import com.sdsmdg.harjot.rotatingtext.RotatingTextWrapper;
 import org.tensorflow.lite.support.image.TensorImage;
 
 import java.util.List;
+
+import cn.leancloud.LCUser;
 
 /**
  * @author Wang Yuyang
@@ -269,5 +272,14 @@ public class MainIndexPageFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (LCUser.currentUser() == null) {
+            Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+            startActivity(intent);
+        }
     }
 }

@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.echo.colorizeit.Util;
-
 import cn.leancloud.LCUser;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -32,7 +30,7 @@ public class OpenScreenViewModel extends ViewModel {
 
     }
 
-    public Boolean check_if_user_first_enter(Context context){
+    public Boolean check_if_user_first_enter(Context context) {
         setting.setValue(context.getSharedPreferences("Config", Context.MODE_PRIVATE));
         Is_user_first_enter_this_app.setValue(setting.getValue().getBoolean("FIRST", true));
         return Is_user_first_enter_this_app.getValue();
@@ -42,63 +40,90 @@ public class OpenScreenViewModel extends ViewModel {
     public void mark_user_entered_this_app() {
         setting.getValue().edit().putBoolean("FIRST", false).commit();
     }
+
     public void userAutologin(Context context) {
+        gotoMainActivity.postValue(true);
+//        LCUser currentUser = LCUser.getCurrentUser();
+//        if (currentUser != null) {
+//            // 跳到首页
+//            LCUser.changeCurrentUser(currentUser, true);
+//            gotoMainActivity.postValue(true);
+//        } else {
+//            // 显示注册或登录页面
+////            LCUser.logInAnonymously().subscribe(new Observer<LCUser>() {
+////                public void onSubscribe(Disposable disposable) {
+////                }
+////
+////                public void onNext(LCUser user) {
+////                    // user 是新的匿名用户
+////                    LCUser.changeCurrentUser(user, true);
+////                    gotoMainActivity.postValue(true);
+////                }
+////
+////                public void onError(Throwable throwable) {
+////                }
+////
+////                public void onComplete() {
+////                }
+////            });
+//        }
+
         //Login
-        LCUser user = new LCUser();
-        String UUID = Util.getUUID(context);
-        user.setUsername(UUID);
-        user.setPassword(UUID);
-        LCUser.logIn(UUID, UUID).subscribe(new Observer<LCUser>() {
-            public void onSubscribe(Disposable disposable) {
-            }
-
-            public void onNext(LCUser user) {
-                // 登录成功
-                LCUser.changeCurrentUser(user, true);
-                gotoMainActivity.postValue(true);
-            }
-
-            public void onError(Throwable throwable) {
-                // 登录失败（可能是密码错误）
-                user.signUpInBackground().subscribe(new Observer<LCUser>() {
-                    public void onSubscribe(Disposable disposable) {
-                    }
-
-                    public void onNext(LCUser user) {
-                        // 注册成功
-                        System.out.println("注册成功。objectId：" + user.getObjectId());
-                        LCUser.changeCurrentUser(user, true);
-                        gotoMainActivity.postValue(true);
-                    }
-
-                    public void onError(Throwable throwable) {
-                        LCUser.logInAnonymously().subscribe(new Observer<LCUser>() {
-                            public void onSubscribe(Disposable disposable) {
-                            }
-
-                            public void onNext(LCUser user) {
-                                // user 是新的匿名用户
-                                LCUser.changeCurrentUser(user, true);
-                                gotoMainActivity.postValue(true);
-                            }
-
-                            public void onError(Throwable throwable) {
-                                showAlterDialog.postValue(true);
-                            }
-
-                            public void onComplete() {
-                            }
-                        });
-                    }
-
-                    public void onComplete() {
-                    }
-                });
-            }
-
-            public void onComplete() {
-            }
-        });
+//        LCUser user = new LCUser();
+//        String UUID = Util.getUUID(context);
+//        user.setUsername(UUID);
+//        user.setPassword(UUID);
+//        LCUser.logIn(UUID, UUID).subscribe(new Observer<LCUser>() {
+//            public void onSubscribe(Disposable disposable) {
+//            }
+//
+//            public void onNext(LCUser user) {
+//                // 登录成功
+//                LCUser.changeCurrentUser(user, true);
+//                gotoMainActivity.postValue(true);
+//            }
+//
+//            public void onError(Throwable throwable) {
+//                // 登录失败（可能是密码错误）
+//                user.signUpInBackground().subscribe(new Observer<LCUser>() {
+//                    public void onSubscribe(Disposable disposable) {
+//                    }
+//
+//                    public void onNext(LCUser user) {
+//                        // 注册成功
+//                        System.out.println("注册成功。objectId：" + user.getObjectId());
+//                        LCUser.changeCurrentUser(user, true);
+//                        gotoMainActivity.postValue(true);
+//                    }
+//
+//                    public void onError(Throwable throwable) {
+//                        LCUser.logInAnonymously().subscribe(new Observer<LCUser>() {
+//                            public void onSubscribe(Disposable disposable) {
+//                            }
+//
+//                            public void onNext(LCUser user) {
+//                                // user 是新的匿名用户
+//                                LCUser.changeCurrentUser(user, true);
+//                                gotoMainActivity.postValue(true);
+//                            }
+//
+//                            public void onError(Throwable throwable) {
+//                                showAlterDialog.postValue(true);
+//                            }
+//
+//                            public void onComplete() {
+//                            }
+//                        });
+//                    }
+//
+//                    public void onComplete() {
+//                    }
+//                });
+//            }
+//
+//            public void onComplete() {
+//            }
+//        });
     }
 
     public MutableLiveData<SharedPreferences> getSetting() {

@@ -22,4 +22,9 @@
     <color name="colorBlackThirtyFivePercentAlpha">#59000000</color>
     <color name="startblue">#4DD0E1</color>
     <color name="endblue">#64B5F6</color>
+
+    <color name="textInputLayout">#96ffffff</color>
+
+    <color name="holo_green_dark">#ff669900</color>
+    <color name="holo_red_dark">#ffcc0000</color>
 </resources>

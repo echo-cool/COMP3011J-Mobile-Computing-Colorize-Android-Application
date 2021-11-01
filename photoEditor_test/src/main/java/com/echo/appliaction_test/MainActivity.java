@@ -68,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+//        binding.gameButton2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(_this, LoginViewActivity.class)
+//            }
+//        });
         binding.ChooseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

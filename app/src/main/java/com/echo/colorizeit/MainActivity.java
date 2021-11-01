@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.echo.colorizeit.ImageUtil.PhotoLib;
 import com.example.myapplication.R;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import cn.leancloud.LCUser;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -157,6 +159,20 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (LCUser.currentUser() == null) {
+            Intent intent = new Intent(this, LoginViewActivity.class);
+            startActivity(intent);
+        }
+        else{
+            if(LCUser.currentUser().isAnonymous()){
+                Intent intent = new Intent(this, LoginViewActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 
 }

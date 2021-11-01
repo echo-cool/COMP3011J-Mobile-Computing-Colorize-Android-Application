@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -189,10 +190,34 @@ public class OpenScreenActivity extends BaseActivity {
     }
 
     private void gotoMainActivity() {
+//        new Handler().postDelayed(() -> {
+//            Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_open_screen_fadeout);
+//            animation.setAnimationListener(new Animation.AnimationListener() {
+//                @Override
+//                public void onAnimationStart(Animation animation) {
+//
+//                }
+//
+//                @Override
+//                public void onAnimationEnd(Animation animation) {
+//                    binding.forground.setVisibility(View.VISIBLE);
+//                    binding.OpenScreenImageVIew.setBackgroundColor(Color.BLACK);
+//                    binding.background.setBackgroundColor(Color.BLACK);
+//                    binding.openscreenBase.setBackgroundColor(Color.BLACK);
+//
+//                }
+//
+//                @Override
+//                public void onAnimationRepeat(Animation animation) {
+//
+//                }
+//            });
+//            binding.forground.startAnimation(animation);
+//        }, 1000);
         new Handler().postDelayed(() -> {
             _this.startActivity(new Intent(_this, MainActivity.class));
             _this.finish();
-        }, 1200);
+        }, 1500);
     }
 
     @Override

@@ -24,11 +24,11 @@ public class UserFragmentViewModel extends ViewModel {
         username = new MutableLiveData<>("Can't get username");
     }
 
-    public MutableLiveData<String> getUsername(){
+    public MutableLiveData<String> getUsername() {
         return username;
     }
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.username.postValue(username);
     }
 
@@ -55,7 +55,6 @@ public class UserFragmentViewModel extends ViewModel {
     }
 
 
-
     public void setRemainingCount(Integer remainingCount) {
         this.remainingCount.postValue(remainingCount);
     }
@@ -63,10 +62,15 @@ public class UserFragmentViewModel extends ViewModel {
     public void updateUserProfile() {
         LCUser currentUser = LCUser.getCurrentUser();
         currentUser.fetchInBackground().subscribe(new io.reactivex.Observer<LCObject>() {
-            public void onSubscribe(Disposable disposable) {}
+            public void onSubscribe(Disposable disposable) {
+            }
+
             public void onNext(LCObject user) {
                 if (currentUser != null) {
-                    setUsername(currentUser.getUsername());
+                    if (currentUser.isAnonymous())
+                        setUsername("Tap to Login");
+                    else
+                        setUsername(currentUser.getUsername());
                     setBalance(currentUser.getDouble("Balance"));
                     setProcessedCount(currentUser.getInt("ProcessedCount"));
                     setRemainingCount(currentUser.getInt("RemainingCount"));
@@ -75,10 +79,13 @@ public class UserFragmentViewModel extends ViewModel {
 
                 }
             }
-            public void onError(Throwable throwable) {}
-            public void onComplete() {}
-        });
 
+            public void onError(Throwable throwable) {
+            }
+
+            public void onComplete() {
+            }
+        });
 
 
     }

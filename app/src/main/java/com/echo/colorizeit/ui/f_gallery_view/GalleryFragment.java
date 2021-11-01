@@ -1,5 +1,6 @@
 package com.echo.colorizeit.ui.f_gallery_view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.transition.Fade;
@@ -18,12 +19,15 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.echo.colorizeit.ImageUtil.rcImage;
 import com.echo.colorizeit.Util;
 import com.echo.colorizeit.ui.BaseFragment;
+import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentClarityEnhancementBinding;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.leancloud.LCUser;
 
 
 /**
@@ -96,5 +100,13 @@ public class GalleryFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (LCUser.currentUser() == null) {
+            Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+            startActivity(intent);
+        }
     }
 }

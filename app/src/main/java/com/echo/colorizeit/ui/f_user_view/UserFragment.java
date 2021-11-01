@@ -1,5 +1,6 @@
 package com.echo.colorizeit.ui.f_user_view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentUserBinding;
 
@@ -26,6 +28,7 @@ import io.reactivex.disposables.Disposable;
 public class UserFragment extends Fragment {
     private UserFragmentViewModel model;
     private FragmentUserBinding binding;
+    private UserFragment _this = this;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -70,17 +73,22 @@ public class UserFragment extends Fragment {
                 LCUser currentUser = LCUser.getCurrentUser();
                 currentUser.put("Balance", model.getBalance().getValue() + 5);
                 currentUser.saveInBackground().subscribe(new io.reactivex.Observer<LCObject>() {
-                    public void onSubscribe(Disposable disposable) {}
+                    public void onSubscribe(Disposable disposable) {
+                    }
+
                     public void onNext(LCObject account) {
                         System.out.println("当前余额为：" + account.getDouble("Balance"));
                         model.setBalance(account.getDouble("Balance"));
                         Toast.makeText(getContext(), "New balance is: " + account.getDouble("Balance"), Toast.LENGTH_SHORT).show();
                     }
+
                     public void onError(Throwable throwable) {
                         Toast.makeText(getContext(), "Network Error", Toast.LENGTH_SHORT).show();
 
                     }
-                    public void onComplete() {}
+
+                    public void onComplete() {
+                    }
                 });
             }
         });
@@ -88,7 +96,7 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 LCUser currentUser = LCUser.getCurrentUser();
-                if(model.getBalance().getValue() - 5 > 0) {
+                if (model.getBalance().getValue() - 5 >= 0) {
                     currentUser.put("Balance", model.getBalance().getValue() - 5);
                     currentUser.put("RemainingCount", model.getRemainingCount().getValue() + 5);
                     currentUser.saveInBackground().subscribe(new io.reactivex.Observer<LCObject>() {
@@ -109,8 +117,7 @@ public class UserFragment extends Fragment {
                         public void onComplete() {
                         }
                     });
-                }
-                else{
+                } else {
                     Toast.makeText(getContext(), "No enough balance !", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -119,7 +126,7 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 LCUser currentUser = LCUser.getCurrentUser();
-                if(model.getBalance().getValue() - 10 > 0) {
+                if (model.getBalance().getValue() - 10 > 0) {
                     currentUser.put("Balance", model.getBalance().getValue() - 10);
                     currentUser.put("RemainingCount", model.getRemainingCount().getValue() + 10);
                     currentUser.saveInBackground().subscribe(new io.reactivex.Observer<LCObject>() {
@@ -139,16 +146,72 @@ public class UserFragment extends Fragment {
                         public void onComplete() {
                         }
                     });
-                }
-                else{
+                } else {
                     Toast.makeText(getContext(), "No enough balance !", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        model.updateUserProfile();
+        if (LCUser.currentUser() == null) {
+            Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+            startActivity(intent);
+        } else {
+            model.updateUserProfile();
+        }
+
+        binding.LoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        if (LCUser.currentUser() != null)
+            if (LCUser.currentUser().isAnonymous()) {
+                binding.usernameText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                binding.userAvatars.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+        if (LCUser.currentUser() != null) {
+            if (LCUser.currentUser().isAnonymous()) {
+                binding.logoutButton.setVisibility(View.GONE);
+            } else {
+                binding.logoutButton.setVisibility(View.VISIBLE);
+            }
+        }
+        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (LCUser.currentUser() != null) {
+                    LCUser.logOut();
+                    Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
 
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (LCUser.currentUser() == null) {
+            Intent intent = new Intent(getActivity(), LoginViewActivity.class);
+            startActivity(intent);
+        }
+
+    }
 }

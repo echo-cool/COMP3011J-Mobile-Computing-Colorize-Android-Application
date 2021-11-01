@@ -32,11 +32,18 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showSnackbar(@NonNull String message) {
-        View view = this.findViewById(android.R.id.content);
-        if (view != null) {
-            Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        }
+        BaseActivity _this = this;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View view = _this.findViewById(android.R.id.content);
+                if (view != null) {
+                    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(_this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }
