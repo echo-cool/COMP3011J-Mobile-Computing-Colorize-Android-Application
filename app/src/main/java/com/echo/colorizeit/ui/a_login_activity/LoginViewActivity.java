@@ -105,7 +105,7 @@ public class LoginViewActivity extends BaseActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (Pattern.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", s.toString())) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        binding.loginPasswordInput.setTextColor(getColor(R.color.white));
+                        binding.loginEmailInput.setTextColor(getColor(R.color.white));
                     }
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
