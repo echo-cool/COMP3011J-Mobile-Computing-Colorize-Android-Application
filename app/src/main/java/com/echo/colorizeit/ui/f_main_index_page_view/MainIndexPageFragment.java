@@ -35,7 +35,6 @@ import com.echo.colorizeit.ui.BaseFragment;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
 import com.echo.colorizeit.ui.v_others.ResizableImageView;
-import com.echo.stinger_game.myganme.GameActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentSlideshowBinding;
 import com.luck.picture.lib.PictureSelector;
@@ -214,14 +213,6 @@ public class MainIndexPageFragment extends BaseFragment {
                 } else {
                     Toast.makeText(getContext(), "No Enough Remaining, Please top up !", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        binding.wellComeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GameActivity.class);
-                startActivity(intent);
             }
         });
 

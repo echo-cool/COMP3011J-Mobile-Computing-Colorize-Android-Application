@@ -29,8 +29,6 @@ import com.echo.colorizeit.ML.CategoryProcessListener;
 import com.echo.colorizeit.ML.LabelerModel;
 import com.echo.colorizeit.Util;
 import com.echo.colorizeit.ui.BaseActivity;
-import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
-import com.echo.stinger_game.myganme.GameActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ImageColorizeUploadActivityBinding;
 
@@ -79,13 +77,6 @@ public class ImageUploadViewActivity extends BaseActivity {
 //        });
         binding.lableView.setAdapter(labelAdapter);
         model.setImageViewDataByPath(intent.getStringExtra("sourceFilePath"));
-        binding.imageProcessingAnimation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(_this, GameActivity.class);
-                startActivity(intent);
-            }
-        });
         colorize_image();
         binding.CompareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,18 +203,6 @@ public class ImageUploadViewActivity extends BaseActivity {
             }
         });
 
-        binding.ContinueEditingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("ContinueEditingButton");
-                String data = PhotoLib.saveImageToGallery(getApplicationContext(), model.getColorizedImageBitmap());
-                Intent intent = new Intent(_this, PhotoEditorView.class);
-                intent.putExtra("sourceFilePath", data);
-                startActivity(intent);
-
-            }
-        });
-
 
         setContentView(binding.getRoot());
     }
@@ -283,7 +262,6 @@ public class ImageUploadViewActivity extends BaseActivity {
                         binding.ShareButton.setEnabled(true);
                         binding.SaveImageButton.setEnabled(true);
                         binding.CompareButton.setEnabled(true);
-                        binding.ContinueEditingButton.setEnabled(true);
                         binding.uploadFinishAnimationView.playAnimation();
                         Animation animation_fade_out = AnimationUtils.loadAnimation(_this, R.anim.fade_out);
                         Animation animation_fade_out1 = AnimationUtils.loadAnimation(_this, R.anim.fade_out);

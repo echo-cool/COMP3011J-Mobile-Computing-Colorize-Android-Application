@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.echo.colorizeit.MainActivity;
-import com.echo.stinger_game.myganme.GameActivity;
 import com.echo.colorizeit.ui.BaseActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.OpenScreenBinding;
@@ -175,8 +174,6 @@ public class OpenScreenActivity extends BaseActivity {
         alterDiaglog.setPositiveButton("Play a Game", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(_this, GameActivity.class);
-                startActivity(intent);
             }
         });
 

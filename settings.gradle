@@ -9,6 +9,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "My Application"
 include ':app'
-include ':photo_editor'
-include ':stinger_game'
-include ':photoEditor_test'

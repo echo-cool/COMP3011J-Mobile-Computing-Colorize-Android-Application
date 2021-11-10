@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.echo.colorizeit.ImageUtil.rcImage;
 import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
-import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
 import com.example.myapplication.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -68,22 +67,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             }
         });
         holder.Image.startAnimation(animation_fade_in);
-        holder.Image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.Image.getContext(), PhotoEditorView.class);
-                intent.putExtra("sourceFilePath", image.getImgPath());
-                holder.Image.getContext().startActivity(intent);
-            }
-        });
-        holder.Edit_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.Image.getContext(), PhotoEditorView.class);
-                intent.putExtra("sourceFilePath", image.getImgPath());
-                holder.Image.getContext().startActivity(intent);
-            }
-        });
         holder.Share_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +143,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             super(view);
             Image = (ImageView) view.findViewById(R.id.rc_image_view);
             Share_button = view.findViewById(R.id.gallery_share_button);
-            Edit_button = view.findViewById(R.id.gallery_edit_button);
+//            Edit_button = view.findViewById(R.id.gallery_edit_button);
             Save_button = view.findViewById(R.id.gallery_save_button);
         }
 
