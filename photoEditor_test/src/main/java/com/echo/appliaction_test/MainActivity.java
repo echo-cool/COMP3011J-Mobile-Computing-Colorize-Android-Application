@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         //-----------------------------TEST Image-------------------------------
-//        sourceFilePath = "/storage/emulated/0/Pictures/Colorized Image (26).jpg";
-//        Intent intent = new Intent(_this, PhotoEditorView.class);
-//        intent.putExtra("sourceFilePath", sourceFilePath);
-//        startActivity(intent);
+        sourceFilePath = "/storage/emulated/0/Pictures/Colorized Image (26).jpg";
+        Intent intent = new Intent(_this, PhotoEditorView.class);
+        intent.putExtra("sourceFilePath", sourceFilePath);
+        startActivity(intent);
         setContentView(binding.getRoot());
         TextView textView = binding.textView2;
         TextView textView1 = binding.textView3;

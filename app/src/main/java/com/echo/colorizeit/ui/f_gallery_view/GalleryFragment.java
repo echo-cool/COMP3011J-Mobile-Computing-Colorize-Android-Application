@@ -62,19 +62,19 @@ public class GalleryFragment extends BaseFragment {
             }
         });
         RecyclerView image_gallery = binding.rcGallery;
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         adapter = new ImageAdapter(getRcImageList());
-        image_gallery.setLayoutManager(layoutManager);
+//        image_gallery.setLayoutManager(layoutManager);
         image_gallery.setAdapter(adapter);
-        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+//        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         //防止item 交换位置
-        image_gallery.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                layoutManager.invalidateSpanAssignments(); //防止第一行到顶部有空白区域
-            }
-        });
+//        image_gallery.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                layoutManager.invalidateSpanAssignments(); //防止第一行到顶部有空白区域
+//            }
+//        });
 
 
         return root;

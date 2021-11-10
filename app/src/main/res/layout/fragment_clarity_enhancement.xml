@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="0dp"
     tools:context="com.echo.colorizeit.ui.f_gallery_view.GalleryFragment">
 
     <TextView
@@ -37,10 +38,12 @@
         android:id="@+id/rcGallery"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:spanCount="2"
         tools:ignore="SpeakableTextPresentCheck"
         tools:listitem="@layout/rcimage_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

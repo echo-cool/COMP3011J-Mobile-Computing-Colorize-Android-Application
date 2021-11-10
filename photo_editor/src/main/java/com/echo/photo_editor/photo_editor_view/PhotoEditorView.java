@@ -14,14 +14,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.echo.photo_editor.ML.BaiduImageAPI;
 import com.echo.photo_editor.ML.LowLightModel;
 import com.echo.photo_editor.ML.StyleTransModel;
+import com.echo.photo_editor.ML.styleTransTypes;
 import com.echo.photo_editor.R;
 import com.echo.photo_editor.databinding.ActivityPhotoEditorBinding;
 import com.echo.photo_editor.photo_editor_view.adapter.ImagePreviewAdapter;
+import com.echo.photo_editor.photo_editor_view.model.ContrastEnhanceTool;
+import com.echo.photo_editor.photo_editor_view.model.DehazeTool;
 import com.echo.photo_editor.photo_editor_view.model.EditableImage;
-import com.echo.photo_editor.photo_editor_view.model.LowLightTool;
+import com.echo.photo_editor.photo_editor_view.model.SelfieAnimeTool;
 import com.echo.photo_editor.photo_editor_view.model.StyleTool;
+import com.echo.photo_editor.photo_editor_view.model.StyleTool2;
 import com.echo.photo_editor.photo_editor_view.model.Tool;
 import com.echo.photo_editor.photo_editor_view.model.Toolbox;
 import com.echo.photo_editor.util.PhotoLib;
@@ -41,6 +46,7 @@ public class PhotoEditorView extends AppCompatActivity {
     public StyleTransModel styleTransModel = new StyleTransModel(this);
     public LowLightModel lowLightModel = new LowLightModel(this);
     private PhotoEditorView _this = this;
+    public BaiduImageAPI baiduImageAPI;
 
 
     @Override
@@ -48,6 +54,7 @@ public class PhotoEditorView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPhotoEditorBinding.inflate(getLayoutInflater());
         model = new ViewModelProvider(this).get(PhotoEditorViewModel.class);
+        baiduImageAPI = new BaiduImageAPI(this);
         Intent intent = getIntent();
         String sourceFilePath = intent.getStringExtra("sourceFilePath");
         model.set_sourceFilePath(sourceFilePath);
@@ -136,7 +143,7 @@ public class PhotoEditorView extends AppCompatActivity {
                 this
         );
 
-        Toolbox style_trans = new Toolbox("Style Trans", BitmapFactory.decodeResource(getResources(), R.mipmap.tool_tmp_image));
+        Toolbox style_trans = new Toolbox("Style Trans", BitmapFactory.decodeResource(getResources(), R.mipmap.candy));
         style_trans.getTools().add(candy);
         style_trans.getTools().add(feathers);
         style_trans.getTools().add(la_muse);
@@ -144,19 +151,123 @@ public class PhotoEditorView extends AppCompatActivity {
         style_trans.getTools().add(the_scream);
         style_trans.getTools().add(udnie);
 
-        LowLightTool lowLightTool = new LowLightTool(
-                "LowLight",
-                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher),
+//        LowLightTool lowLightTool = new LowLightTool(
+//                "LowLight",
+//                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher),
+//                this
+//        );
+//        Toolbox lowLightToolBox = new Toolbox(
+//                "Lowlight",
+//                BitmapFactory.decodeResource(getResources(), R.mipmap.tool_tmp_image)
+//        );
+//        lowLightToolBox.getTools().add(lowLightTool);
+
+        StyleTool2 cartoon = new StyleTool2(
+                "cartoon",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.cartoon),
+                styleTransTypes.cartoon,
                 this
         );
-        Toolbox lowLightToolBox = new Toolbox(
-                "Lowlight",
-                BitmapFactory.decodeResource(getResources(), R.mipmap.tool_tmp_image)
+        StyleTool2 pencil = new StyleTool2(
+                "pencil",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.pencil),
+                styleTransTypes.pencil,
+                this
+
         );
-        lowLightToolBox.getTools().add(lowLightTool);
+        StyleTool2 color_pencil = new StyleTool2(
+                "color_pencil",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.colorpencil),
+                styleTransTypes.color_pencil,
+                this
+
+        );
+        StyleTool2 warm = new StyleTool2(
+                "warm",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.warm),
+                styleTransTypes.warm,
+                this
+
+        );
+        StyleTool2 wave = new StyleTool2(
+                "wave",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.wave),
+                styleTransTypes.wave,
+                this
+
+        );
+        StyleTool2 lavender = new StyleTool2(
+                "lavender",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.lavender),
+                styleTransTypes.lavender,
+                this
+
+        );
+        StyleTool2 mononoke = new StyleTool2(
+                "mononoke",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.mononoke),
+                styleTransTypes.mononoke,
+                this
+
+        );
+        StyleTool2 scream = new StyleTool2(
+                "scream",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.scream),
+                styleTransTypes.scream,
+                this
+
+        );
+        StyleTool2 gothic = new StyleTool2(
+                "gothic",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.gothic),
+                styleTransTypes.gothic,
+                this
+
+        );
+
+        Toolbox style_trans_baidu = new Toolbox("Style Trans2", BitmapFactory.decodeResource(getResources(), R.mipmap.scream));
+        style_trans_baidu.getTools().add(cartoon);
+        style_trans_baidu.getTools().add(pencil);
+        style_trans_baidu.getTools().add(color_pencil);
+        style_trans_baidu.getTools().add(warm);
+        style_trans_baidu.getTools().add(wave);
+        style_trans_baidu.getTools().add(lavender);
+        style_trans_baidu.getTools().add(mononoke);
+        style_trans_baidu.getTools().add(scream);
+        style_trans_baidu.getTools().add(gothic);
+
+
+        Toolbox dehaze = new Toolbox("Dehaze", BitmapFactory.decodeResource(getResources(), R.mipmap.dehaze_demo));
+        Tool dehaze_tool = new DehazeTool(
+                "Dehaze",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.dehaze_demo),
+                this
+        );
+        dehaze.getTools().add(dehaze_tool);
+
+        Toolbox selfieAnimeToolbox = new Toolbox("selfieAnime", BitmapFactory.decodeResource(getResources(), R.mipmap.selfieanime_demo));
+        Tool selfieAnimeTool = new SelfieAnimeTool(
+                "selfieAnime",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.selfieanime_demo),
+                this
+        );
+        selfieAnimeToolbox.getTools().add(selfieAnimeTool);
+
+        Toolbox ContrastEnhanceToolBox = new Toolbox("Contrast", BitmapFactory.decodeResource(getResources(), R.mipmap.contrastenhance_demo));
+        ContrastEnhanceTool contrastEnhanceTool = new ContrastEnhanceTool(
+                "Enhance",
+                BitmapFactory.decodeResource(getResources(), R.mipmap.contrastenhance_demo),
+                this
+        );
+        ContrastEnhanceToolBox.getTools().add(contrastEnhanceTool);
 
         toolboxes.add(style_trans);
-        toolboxes.add(lowLightToolBox);
+//        toolboxes.add(lowLightToolBox);
+        toolboxes.add(style_trans_baidu);
+        toolboxes.add(dehaze);
+        toolboxes.add(ContrastEnhanceToolBox);
+        toolboxes.add(selfieAnimeToolbox);
+
 
         imagePreviewAdapter = new ImagePreviewAdapter(toolboxes);
         binding.imagePreviewRcView.setAdapter(imagePreviewAdapter);
