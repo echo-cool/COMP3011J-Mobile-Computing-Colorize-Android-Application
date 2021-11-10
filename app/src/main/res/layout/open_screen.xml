@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/architects_daughter"
-        android:text="yuyang.wang@ucdconnect.ie"
+        android:text="北京育英学校"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:visibility="invisible"
