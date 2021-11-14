@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +58,7 @@ public class PhotoEditorView extends AppCompatActivity {
         model = new ViewModelProvider(this).get(PhotoEditorViewModel.class);
         baiduImageAPI = new BaiduImageAPI(this);
         Intent intent = getIntent();
+        makeFullScreen();
         String sourceFilePath = intent.getStringExtra("sourceFilePath");
         model.set_sourceFilePath(sourceFilePath);
 //        model.getSourceFilePath().observe(this, new Observer<String>() {
@@ -322,5 +325,9 @@ public class PhotoEditorView extends AppCompatActivity {
             }
         });
 
+    }
+    public void makeFullScreen() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }

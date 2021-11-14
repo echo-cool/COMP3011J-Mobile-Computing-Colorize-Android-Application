@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.echo.photo_editor.databinding.ActivityMainBinding;
 import com.echo.photo_editor.photo_editor_view.PhotoEditorView;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        makeFullScreen();
         //-----------------------------TEST Image-------------------------------
 //        sourceFilePath = "/storage/emulated/0/Pictures/Colorized Image (26).jpg";
 //        Intent intent = new Intent(_this, PhotoEditorView.class);
@@ -63,5 +66,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+    }
+
+    public void makeFullScreen() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }

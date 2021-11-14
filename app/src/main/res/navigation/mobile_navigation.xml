@@ -26,4 +26,8 @@
         android:id="@+id/nav_userFragment"
         android:name="com.echo.colorizeit.ui.f_user_view.UserFragment"
         android:label="UserFragment" />
+    <fragment
+        android:id="@+id/communityFragment2"
+        android:name="com.echo.colorizeit.ui.f_community_view.CommunityFragment"
+        android:label="CommunityFragment" />
 </navigation>

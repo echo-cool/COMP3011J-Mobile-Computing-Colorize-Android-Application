@@ -9,13 +9,20 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentUserBinding;
+
+import java.util.List;
 
 import cn.leancloud.LCObject;
 import cn.leancloud.LCUser;
@@ -25,18 +32,30 @@ import io.reactivex.disposables.Disposable;
  * @author Wang Yuyang
  * @date 2021-09-22 13:52:43
  */
-public class UserFragment extends Fragment {
+public class UserFragment extends Fragment implements PurchasesUpdatedListener {
     private UserFragmentViewModel model;
+
     private FragmentUserBinding binding;
     private UserFragment _this = this;
     private View root;
+    private PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
+        @Override
+        public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+            // To be implemented in a later section.
+        }
+    };
+
+    private BillingClient billingClient;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         model = new ViewModelProvider(this).get(UserFragmentViewModel.class);
         binding = FragmentUserBinding.inflate(inflater, container, false);
         root = binding.getRoot();
-
+        billingClient = BillingClient.newBuilder(getContext())
+                .setListener(purchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build();
 
         Fade slideTracition = new Fade();
         slideTracition.setDuration(getResources().getInteger(R.integer.config_navAnimTime));
@@ -70,6 +89,56 @@ public class UserFragment extends Fragment {
         binding.TopUpBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                List<String> skuList = new ArrayList<>();
+//                skuList.add("0");
+//                skuList.add("1");
+//                skuList.add("2");
+//                skuList.add("3");
+//                SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+//                params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+//                billingClient.startConnection(new BillingClientStateListener() {
+//                    @Override
+//                    public void onBillingSetupFinished(BillingResult billingResult) {
+//                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+//                            // The BillingClient is ready. You can query purchases here.
+//                            System.out.println("The BillingClient is ready. You can query purchases here.");
+//                            billingClient.querySkuDetailsAsync(params.build(),
+//                                    new SkuDetailsResponseListener() {
+//                                        @Override
+//                                        public void onSkuDetailsResponse(BillingResult billingResult,
+//                                                                         List<SkuDetails> skuDetailsList) {
+//                                            // Process the result.
+//                                            System.out.println(billingResult.getDebugMessage());
+//                                            System.out.println(skuDetailsList);
+//                                        }
+//                                    });
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onBillingServiceDisconnected() {
+//                        // Try to restart the connection on the next request to
+//                        // Google Play by calling the startConnection() method.
+//                        System.out.println("Disconnected");
+//                    }
+//                });
+
+
+// Handle the result.
+
+// SkuDetails object obtained above.
+//                SkuDetails skuDetails = ...;
+//
+//                BillingFlowParams purchaseParams =
+//                        BillingFlowParams.newBuilder()
+//                                .setSkuDetails(skuDetails)
+//                                .build();
+//
+//                BillingClient mBillingClient;
+//                mBillingClient.launchBillingFlow(mActivity, purchaseParams);
+
+// Purchase is handled in onPurchasesUpdated illustrated in the previous section.
+
                 LCUser currentUser = LCUser.getCurrentUser();
                 currentUser.put("Balance", model.getBalance().getValue() + 5);
                 currentUser.saveInBackground().subscribe(new io.reactivex.Observer<LCObject>() {
@@ -203,6 +272,11 @@ public class UserFragment extends Fragment {
 
 
         return root;
+    }
+
+    @Override
+    public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
+        // Logic from onActivityResult should be moved here.
     }
 
     @Override

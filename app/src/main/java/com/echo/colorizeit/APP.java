@@ -16,10 +16,14 @@ public class APP extends Application {
 
         // 提供 this、App ID、App Key、Server Host 作为参数
         // 注意这里千万不要调用 cn.leancloud.core.LeanCloud 的 initialize 方法，否则会出现 NetworkOnMainThread 等错误。
+//        LeanCloud.initialize(this,
+//                "IIuObRE1fWDsL8sOMXuqLgux-gzGzoHsz",
+//                "IwTKYR5dPLT901k7hlbGxtuX",
+//                "https://iiuobre1.lc-cn-n1-shared.com");
         LeanCloud.initialize(this,
-                "IIuObRE1fWDsL8sOMXuqLgux-gzGzoHsz",
-                "IwTKYR5dPLT901k7hlbGxtuX",
-                "https://iiuobre1.lc-cn-n1-shared.com");
+                "aXtS1Ar4i3CRKa6oc72bp5Ro-gzGzoHsz",
+                "KD4f0t7AfuBKztLIC8GeATaR",
+                "https://axts1ar4.lc-cn-n1-shared.com");
         LeanCloud.setLogLevel(LCLogger.Level.DEBUG);
 
 

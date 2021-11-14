@@ -5,28 +5,25 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.echo.colorizeit.ImageUtil.PhotoLib;
-import com.example.myapplication.R;
-import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.echo.colorizeit.ImageUtil.PhotoLib;
+import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
+import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityMainBinding;
-
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -72,16 +69,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 //        NavigationUI.setupWithNavController(binding.navView, navController);
+
+        //MeowBottomNavigation is a third-parity view
+        //com.etebarian:meow-bottom-navigation:1.2.0
         MeowBottomNavigation bottomNavigation = binding.navView;
         bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_home_black_24dp));
         bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_menu_gallery));
-//        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_menu_slideshow));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_menu_slideshow));
         bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.ic_baseline_person_24));
         bottomNavigation.show(1, true);
         bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
             @Override
             public Unit invoke(MeowBottomNavigation.Model model) {
-                switch (model.getId()){
+                switch (model.getId()) {
                     case 1:
                         navController.navigate(R.id.nav_slideshow);
                         break;
@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.nav_gallery);
                         break;
 
-//                    case 3:
-//                        navController.navigate(R.id.nav_home);
-//                        break;
+                    case 3:
+                        navController.navigate(R.id.communityFragment2);
+                        break;
 
                     case 4:
                         navController.navigate(R.id.nav_userFragment);
@@ -101,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
-
-
 
 
 //        DrawerLayout drawer = binding.drawerLayout;
@@ -160,15 +158,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
         if (LCUser.currentUser() == null) {
             Intent intent = new Intent(this, LoginViewActivity.class);
             startActivity(intent);
-        }
-        else{
-            if(LCUser.currentUser().isAnonymous()){
+        } else {
+            if (LCUser.currentUser().isAnonymous()) {
                 Intent intent = new Intent(this, LoginViewActivity.class);
                 startActivity(intent);
             }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "675677589197",
+    "project_id": "android-colorize",
+    "storage_bucket": "android-colorize.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675677589197:android:6a326992f3f1a26ad3e384",
+        "android_client_info": {
+          "package_name": "com.echo.colorize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675677589197-h68j30ga4sgb7q7ml4838vgs47gic5dg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP2PgEHuz8TLE0LikRV5I19piagGG4CQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675677589197-h68j30ga4sgb7q7ml4838vgs47gic5dg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

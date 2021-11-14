@@ -26,6 +26,26 @@ public class PhotoLib {
         byte[] byteArray = buf.array();
         return byteArray;
     }
+    public static String saveImageTmp(Context context, Bitmap bmp) {
+        // 首先保存图片
+        File appDir = context.getFilesDir();
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = System.currentTimeMillis() + ".png";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            bmp.compress(Bitmap.CompressFormat.PNG, 80, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file.getAbsolutePath();
+    }
     public static Bitmap BytesToBitmap(byte[] bytes){
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap;

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/gallery_background">
+
+    <TextView
+        android:id="@+id/posted_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2021-9-21"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/posted_by"
+        app:layout_constraintTop_toBottomOf="@+id/posted_by" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/image_loading_view_anim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/rc_image_view2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rc_image_view2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/image_loading2" />
+
+    <ImageView
+        android:id="@+id/rc_image_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/original" />
+
+    <TextView
+        android:id="@+id/posted_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="w1109790800@gamil.com"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/user_icon"
+        app:layout_constraintTop_toBottomOf="@+id/rc_image_view2" />
+
+    <ImageView
+        android:id="@+id/gallery_save_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gallery_share_button2"
+        app:layout_constraintEnd_toStartOf="@+id/gallery_share_button2"
+        app:layout_constraintTop_toTopOf="@+id/gallery_share_button2"
+        app:srcCompat="@drawable/ic_baseline_save_alt_24" />
+
+    <ImageView
+        android:id="@+id/gallery_share_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/posted_time"
+        app:srcCompat="@drawable/ic_baseline_share_24" />
+
+    <ImageView
+        android:id="@+id/thumb_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gallery_save_button2"
+        app:layout_constraintEnd_toStartOf="@+id/gallery_save_button2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gallery_save_button2"
+        app:srcCompat="@drawable/ic_baseline_thumb_up_24" />
+
+    <TextView
+        android:id="@+id/thumb_up_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="10"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/thumb_up_button"
+        app:layout_constraintStart_toStartOf="@+id/thumb_up_button"
+        app:layout_constraintTop_toBottomOf="@+id/thumb_up_button" />
+
+    <TextView
+        android:id="@+id/download_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="300"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/gallery_save_button2"
+        app:layout_constraintStart_toStartOf="@+id/gallery_save_button2"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_save_button2" />
+
+    <TextView
+        android:id="@+id/share_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="100"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/gallery_share_button2"
+        app:layout_constraintStart_toStartOf="@+id/gallery_share_button2"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_share_button2" />
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/round"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/posted_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/posted_by"
+        tools:srcCompat="@tools:sample/avatars" />
+</androidx.constraintlayout.widget.ConstraintLayout>

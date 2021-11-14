@@ -1,6 +1,12 @@
 package com.echo.colorizeit.ui.f_gallery_view;
 
+import static com.echo.colorizeit.Util.check_is_grayscale;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.transition.Fade;
@@ -16,12 +22,22 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.echo.colorizeit.ImageUtil.PhotoLib;
 import com.echo.colorizeit.ImageUtil.rcImage;
+import com.echo.colorizeit.ImageUtil.thirdparty.GlideEngine;
 import com.echo.colorizeit.Util;
 import com.echo.colorizeit.ui.BaseFragment;
+import com.echo.colorizeit.ui.a_image_upload_activity.ImageUploadViewActivity;
 import com.echo.colorizeit.ui.a_login_activity.LoginViewActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentClarityEnhancementBinding;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.listener.OnResultCallbackListener;
+
+import org.tensorflow.lite.support.image.TensorImage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,6 +82,31 @@ public class GalleryFragment extends BaseFragment {
         adapter = new ImageAdapter(getRcImageList());
 //        image_gallery.setLayoutManager(layoutManager);
         image_gallery.setAdapter(adapter);
+        binding.textView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("textGallery");
+                PictureSelector.create(getActivity())
+                        .openGallery(PictureMimeType.ofAll())
+                        .imageEngine(GlideEngine.createGlideEngine())
+                        .selectionMode(PictureConfig.SINGLE)
+                        .forResult(new OnResultCallbackListener<LocalMedia>() {
+                            @Override
+                            public void onResult(List<LocalMedia> result) {
+                                String sourceFilePath = result.get(0).getRealPath();
+                                Bitmap img = BitmapFactory.decodeFile(sourceFilePath);
+                                PhotoLib.saveImageToGallery(getContext(),img);
+
+                            }
+
+
+                            @Override
+                            public void onCancel() {
+                                // 取消
+                            }
+                        });
+            }
+        });
 //        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         //防止item 交换位置
 //        image_gallery.addOnScrollListener(new RecyclerView.OnScrollListener() {
