@@ -60,8 +60,6 @@ public class LoginViewActivity extends BaseActivity {
 
         }
 
-
-
         binding.signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

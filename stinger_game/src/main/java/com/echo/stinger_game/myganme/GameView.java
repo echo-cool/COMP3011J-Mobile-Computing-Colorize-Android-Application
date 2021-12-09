@@ -23,7 +23,7 @@ import java.util.ConcurrentModificationException;
  * @date 2021-10-11 11:26:47
  */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
-    public static final Boolean DEBUG = true;
+    public static Boolean DEBUG = false;
     public static int FPS = 60;
     public static int minDrawTime = 1000 / FPS;
     public static Context context;
@@ -151,6 +151,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
                 } catch (ConcurrentModificationException e) {
                     System.out.println("ConcurrentModificationException");
                 }
+
                 if (DEBUG) {
                     canvas.drawText("DrawTime: " + (end - start) + " ms", 50, 100, string_paint);
                     canvas.drawText("Width: " + canvas.getWidth(), 50, 150, string_paint);
