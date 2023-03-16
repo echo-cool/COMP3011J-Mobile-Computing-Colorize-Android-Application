@@ -14,9 +14,9 @@ import java.util.HashMap;
 
 public class BaiduImageAPI {
     //设置APPID/AK/SK
-    public static final String APP_ID = "24778510";
-    public static final String API_KEY = "z2Uw0ij41KQLxlfNmbs9X4YZ";
-    public static final String SECRET_KEY = "wIiKlRQjQA9XG40ivhPwcl89E40FP8TU";
+    public static final String APP_ID = "xxxx";
+    public static final String API_KEY = "xxx";
+    public static final String SECRET_KEY = "xxx";
     public Context context;
 
     public BaiduImageAPI(Context context) {
