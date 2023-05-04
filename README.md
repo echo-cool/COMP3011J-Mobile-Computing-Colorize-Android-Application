@@ -1,7 +1,9 @@
 
 # Android Applications - Colorize it! (Java)
 
+
 * Git Project Address: [https://git.echo.cool/UCD/Android_Colorize](https://git.echo.cool/UCD/Android_Colorize)
+
 
 * **Project Overview**: This project builds an Android application that can restore the color of the old gray-scalimages. This application also has a build-in image editor, a community for posting recolored images and a top-usystem.
 * **Grav-scale Image Recolor**: The functionality of image recolor was achieved by A **GAN** model. The model wadeployed on Baidu Cloud Computing Platform, using REST API for communication.
