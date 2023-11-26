@@ -2,6 +2,8 @@
 # Android Applications - Colorize it! (Java)
 
 
+![android_colorize.webp](android_colorize.webp)
+
 * Git Project Address: [https://git.echo.cool/UCD/Android_Colorize](https://git.echo.cool/UCD/Android_Colorize)
 
 
